@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+Disallow: /search
+Disallow: /?q=
+
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /admin/
+
+Disallow: /cdn-cgi/
+
+Sitemap: https://loveucalc.com/sitemap.xml

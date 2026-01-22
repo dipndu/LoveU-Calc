@@ -1,19 +1,64 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. THE TOOL DATABASE ---
-    // Add all your tools here. This is what the search engine looks through.
-    const toolsDB = [
-        { name: "Asphalt Calculator", url: "/asphalt-calculator/", tags: "construction road driveway blacktop" },
-        { name: "CGPA Calculator", url: "/cgpa-calculator/", tags: "education grade marks college" },
-        { name: "SGPA Calculator", url: "/sgpa-calculator/", tags: "education semester grade" },
-        { name: "Salary Hike Calculator", url: "/salary-hike-calculator/", tags: "finance money pay raise" },
-        { name: "Mortgage Payoff", url: "/mortgage-payoff-calculator/", tags: "finance loan house interest" },
-        { name: "Cubic Yard Calculator", url: "/cubic-yard-calculator/", tags: "construction dirt concrete volume" },
-        { name: "Age Calculator", url: "/age-calculator/", tags: "general lifestyle birthday" },
-        // Add more tools here as you build them...
-    ];
+    // ---------------------------------------------------------
+    // 1. DYNAMIC TOOLS DATABASE (Starts empty, loads automatically)
+    // ---------------------------------------------------------
+    let toolsDB = [];
 
-    // --- 2. ELEMENTS ---
+    async function loadTools() {
+        try {
+            // Attempt to fetch the sitemap
+            const response = await fetch('/sitemap.xml');
+            
+            if (response.ok) {
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(text, "text/xml");
+                const locs = xml.querySelectorAll("loc");
+
+                // Convert sitemap URLs into search results
+                toolsDB = Array.from(locs).map(node => {
+                    const url = node.textContent;
+                    const path = new URL(url).pathname; 
+
+                    // Skip homepage or index
+                    if (path === '/' || path === '/index.html') return null;
+
+                    // Clean string: remove slashes, replace dashes with spaces
+                    let name = path.replace(/^\/|\/$/g, '').replace(/-/g, ' ');
+
+                    // Capitalize Words for the display title
+                    name = name.replace(/\b\w/g, char => char.toUpperCase());
+
+                    // Filter out non-tool pages (Add pages you want to hide here)
+                    const ignoreList = ['Contact', 'About', 'Privacy', 'Terms', 'Sitemap', 'Category', 'Author'];
+                    if (ignoreList.some(ignore => name.includes(ignore))) return null;
+
+                    return { 
+                        name: name, 
+                        url: url, 
+                        // Auto-generate tags from the name for easier searching
+                        tags: name.toLowerCase() 
+                    };
+                }).filter(item => item !== null); // Remove null entries
+
+                console.log("Tools loaded:", toolsDB.length); // Debugging check
+
+            } else {
+                console.warn("Sitemap.xml not found. Search will be empty.");
+            }
+        } catch (error) {
+            console.error("Error auto-loading tools:", error);
+        }
+    }
+
+    // Run the loader immediately
+    loadTools();
+
+
+    // ---------------------------------------------------------
+    // 2. EXISTING UI HANDLERS (Menu & Search Overlays)
+    // ---------------------------------------------------------
     const menuBtn = document.getElementById('menuBtn');
     const searchBtn = document.getElementById('searchBtn');
     const closeMenu = document.getElementById('closeMenu');
@@ -25,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('globalSearchInput');
     const resultsContainer = document.getElementById('searchResults');
 
-    // --- 3. MENU LOGIC ---
+    
     if(menuBtn && menuOverlay) {
         menuBtn.addEventListener('click', () => {
             menuOverlay.classList.add('active');
@@ -45,14 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 4. SEARCH OPEN/CLOSE LOGIC ---
+    
     if(searchBtn && searchOverlay) {
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.add('active');
             if(searchInput) {
-                searchInput.value = ''; // Clear previous search
-                searchInput.focus(); // Focus cursor automatically
-                if(resultsContainer) resultsContainer.innerHTML = ''; // Clear previous results
+                searchInput.value = ''; 
+                searchInput.focus(); 
+                if(resultsContainer) resultsContainer.innerHTML = ''; 
             }
             document.body.style.overflow = 'hidden';
         });
@@ -70,32 +115,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 5. REAL SEARCH FUNCTIONALITY ---
+    
+    // ---------------------------------------------------------
+    // 3. SEARCH INPUT LOGIC
+    // ---------------------------------------------------------
     if(searchInput && resultsContainer) {
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
-            resultsContainer.innerHTML = ''; // Clear current list
+            resultsContainer.innerHTML = ''; 
 
-            if(query.length === 0) return; // Don't show anything if empty
+            if(query.length === 0) return; 
 
-            // Filter the DB
+            // Search the dynamically loaded toolsDB
             const matches = toolsDB.filter(tool => {
                 return tool.name.toLowerCase().includes(query) || 
-                       tool.tags.toLowerCase().includes(query);
+                       tool.tags.includes(query);
             });
 
-            // Display Results
             if(matches.length > 0) {
                 matches.forEach(tool => {
                     const link = document.createElement('a');
                     link.href = tool.url;
-                    link.className = 'search-result-item';
+                    link.className = 'search-result-item'; // Matches your CSS
+                    
+                    // Optional inline styling for results if CSS is missing
+                    link.style.display = 'block';
+                    link.style.padding = '12px 0';
+                    link.style.borderBottom = '1px solid #eee';
+                    link.style.fontSize = '1.1rem';
+                    link.style.fontWeight = '500';
+                    
                     link.textContent = tool.name;
                     resultsContainer.appendChild(link);
                 });
             } else {
                 const noResult = document.createElement('div');
                 noResult.className = 'no-results';
+                noResult.style.padding = '12px 0';
+                noResult.style.color = '#64748b';
                 noResult.textContent = 'No tools found matching "' + query + '"';
                 resultsContainer.appendChild(noResult);
             }

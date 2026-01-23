@@ -139,11 +139,7 @@
         .foot-btm { border-top: 1px solid var(--bord); padding-top: 1.5rem; text-align: center; color: var(--mut); font-size: 0.85rem; }
 
         /* --- NEW HERO STYLES --- */
-        .hero-wrap { 
-            position: relative; padding: 5rem 0 4rem; background: var(--bg); border-bottom: 1px solid var(--bord); width: 100%; 
-            /* FIXED: Contains layout painting to this section */
-            contain: layout paint;
-        }
+        .hero-wrap { position: relative; padding: 5rem 0 4rem; background: var(--bg); border-bottom: 1px solid var(--bord); width: 100%; }
         
         .hero-bg {
             position: absolute; inset: 0; z-index: 0;
@@ -151,9 +147,6 @@
             background-size: 24px 24px; opacity: 0.6;
             mask-image: linear-gradient(180deg, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%);
             -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%);
-            /* FIXED: Force GPU acceleration */
-            will-change: transform;
-            transform: translateZ(0); 
         }
         
         .hero-glow {
@@ -161,9 +154,6 @@
             width: 600px; height: 400px;
             background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, rgba(219,39,119,0.05) 50%, transparent 70%);
             z-index: 0; filter: blur(60px); pointer-events: none;
-            /* FIXED: Force GPU acceleration */
-            will-change: transform;
-            transform: translateZ(0);
         }
 
         .hero-content { position: relative; z-index: 1; text-align: center; max-width: 800px; margin: 0 auto; }
@@ -180,8 +170,6 @@
         .new-h1 { 
             font-size: 3rem; font-weight: 800; margin: 0 0 1.2rem; 
             letter-spacing: -1.5px; line-height: 1.15; color: var(--txt); 
-            /* FIXED: Prioritizes text speed */
-            text-rendering: optimizeSpeed;
         }
         .hero-span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         

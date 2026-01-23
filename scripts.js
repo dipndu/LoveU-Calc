@@ -79,30 +79,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Search Overlay Logic (Magnifying Glass)
     if(searchBtn && searchOverlay) {
-        // --- FIX: Get the search bar element so we can measure its height ---
+        // 1. Get the search bar element to measure its height
         const searchBarEl = searchOverlay.querySelector('.search-bar'); 
 
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.add('active');
             
-            // --- FIX: Allow scrolling on the overlay itself ---
+            // 2. Allow scrolling on the overlay wrapper
             searchOverlay.style.overflowY = 'auto'; 
+            
+            // --- FIX: Make background solid white so text is readable ---
+            // This covers the background content completely
+            searchOverlay.style.backgroundColor = '#ffffff';
 
             if(globalInput) {
                 globalInput.value = ''; 
                 if(globalResults) {
                     globalResults.innerHTML = '';
                     
-                    // --- FIX: Push results down by the height of the search bar + 20px gap ---
-                    // This prevents the results from hiding behind the fixed input bar
+                    // 3. Push results down dynamically so they aren't hidden behind the bar
                     const barHeight = searchBarEl ? searchBarEl.offsetHeight : 80;
                     globalResults.style.marginTop = `${barHeight + 20}px`;
-                    globalResults.style.paddingBottom = '50px'; // Extra space at bottom for scrolling
+                    globalResults.style.paddingBottom = '50px'; 
                 }
 
-                // --- FIX: Add a delay before focusing ---
-                // We wait 350ms (slightly longer than your 0.3s CSS transition)
-                // This ensures the element is fully visible before asking mobile to open keyboard
+                // 4. FIX FOR KEYBOARD: Wait for the 0.3s transition to finish
                 setTimeout(() => {
                     globalInput.focus();
                 }, 350); 
@@ -114,20 +115,21 @@ document.addEventListener('DOMContentLoaded', () => {
             searchOverlay.classList.remove('active');
             document.body.style.overflow = '';
             
-            // Optional: Remove focus to close keyboard on mobile
+            // Reset background color to default CSS just in case
+            setTimeout(() => { searchOverlay.style.backgroundColor = ''; }, 300);
+            
             if(globalInput) globalInput.blur();
         });
 
         searchOverlay.addEventListener('click', (e) => {
-            // Close if clicking the background (but not the search bar or results)
             if(e.target === searchOverlay) {
                 searchOverlay.classList.remove('active');
                 document.body.style.overflow = '';
+                setTimeout(() => { searchOverlay.style.backgroundColor = ''; }, 300);
                 if(globalInput) globalInput.blur();
             }
         });
     }
-
     // ---------------------------------------------------------
     // 3. UNIVERSAL SEARCH FUNCTION
     // ---------------------------------------------------------

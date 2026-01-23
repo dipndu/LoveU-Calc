@@ -79,12 +79,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Search Overlay Logic (Magnifying Glass)
     if(searchBtn && searchOverlay) {
+        // --- FIX: Get the search bar element so we can measure its height ---
+        const searchBarEl = searchOverlay.querySelector('.search-bar'); 
+
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.add('active');
+            
+            // --- FIX: Allow scrolling on the overlay itself ---
+            searchOverlay.style.overflowY = 'auto'; 
+
             if(globalInput) {
                 globalInput.value = ''; 
-                globalInput.focus(); 
-                if(globalResults) globalResults.innerHTML = ''; 
+                if(globalResults) {
+                    globalResults.innerHTML = '';
+                    
+                    // --- FIX: Push results down by the height of the search bar + 20px gap ---
+                    // This prevents the results from hiding behind the fixed input bar
+                    const barHeight = searchBarEl ? searchBarEl.offsetHeight : 80;
+                    globalResults.style.marginTop = `${barHeight + 20}px`;
+                    globalResults.style.paddingBottom = '50px'; // Extra space at bottom for scrolling
+                }
+
+                // --- FIX: Add a delay before focusing ---
+                // We wait 350ms (slightly longer than your 0.3s CSS transition)
+                // This ensures the element is fully visible before asking mobile to open keyboard
+                setTimeout(() => {
+                    globalInput.focus();
+                }, 350); 
             }
             document.body.style.overflow = 'hidden';
         });
@@ -92,12 +113,17 @@ document.addEventListener('DOMContentLoaded', () => {
         closeSearch.addEventListener('click', () => {
             searchOverlay.classList.remove('active');
             document.body.style.overflow = '';
+            
+            // Optional: Remove focus to close keyboard on mobile
+            if(globalInput) globalInput.blur();
         });
 
         searchOverlay.addEventListener('click', (e) => {
+            // Close if clicking the background (but not the search bar or results)
             if(e.target === searchOverlay) {
                 searchOverlay.classList.remove('active');
                 document.body.style.overflow = '';
+                if(globalInput) globalInput.blur();
             }
         });
     }

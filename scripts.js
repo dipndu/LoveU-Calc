@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.add('active');
             
-            searchOverlay.style.cssText = 'background-color: rgba(255, 255, 255, 0.5) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); overflow-y: hidden !important;';
+            searchOverlay.style.cssText = 'background-color: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; overflow-y: hidden !important;';
 
             if(globalInput) {
                 globalInput.value = ''; 
@@ -87,9 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     globalResults.style.backgroundColor = '#ffffff';
                     globalResults.style.maxHeight = '60vh'; 
                     globalResults.style.overflowY = 'auto'; 
-                    globalResults.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)'; 
+                    globalResults.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)'; 
                     globalResults.style.borderBottomLeftRadius = '12px';
                     globalResults.style.borderBottomRightRadius = '12px';
+                    globalResults.style.border = '1px solid #e2e8f0';
                 }
 
                 setTimeout(() => {
@@ -109,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     globalResults.style.backgroundColor = '';
                     globalResults.style.maxHeight = '';
                     globalResults.style.boxShadow = '';
+                    globalResults.style.border = '';
                 }
             }, 300);
             
@@ -125,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         globalResults.style.backgroundColor = '';
                         globalResults.style.maxHeight = '';
                         globalResults.style.boxShadow = '';
+                        globalResults.style.border = '';
                     }
                 }, 300);
                 if(globalInput) globalInput.blur();

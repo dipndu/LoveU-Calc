@@ -139,7 +139,7 @@
         .foot-btm { border-top: 1px solid var(--bord); padding-top: 1.5rem; text-align: center; color: var(--mut); font-size: 0.85rem; }
 
         /* --- NEW HERO STYLES --- */
-        .hero-wrap { position: relative; padding: 5rem 0 4rem; background: var(--bg); border-bottom: 1px solid var(--bord); overflow: hidden; width: 100%; }
+        .hero-wrap { position: relative; padding: 5rem 0 4rem; background: var(--bg); border-bottom: 1px solid var(--bord); width: 100%; }
         
         .hero-bg {
             position: absolute; inset: 0; z-index: 0;
@@ -283,9 +283,12 @@
     </div> </header>
 
     <div class="hero-wrap">
+    <div style="position: absolute; inset: 0; overflow: hidden; z-index: 0;">
         <div class="hero-bg"></div>
         <div class="hero-glow"></div>
-        <div class="container hero-content">
+    </div>
+
+    <div class="container hero-content" style="position: relative; z-index: 1;">
             <div class="badge-pill">
                 <div class="badge-dot"></div> 100% Free & Privacy Focused
             </div>

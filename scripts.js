@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // ---------------------------------------------------------
-    // 1. DYNAMIC TOOLS DATABASE (Starts empty, loads automatically)
+    // 1. DYNAMIC TOOLS DATABASE (Auto-load from sitemap.xml)
     // ---------------------------------------------------------
     let toolsDB = [];
 
     async function loadTools() {
         try {
-            // Attempt to fetch the sitemap
+            // Note: This requires running on a local server or live site (not just opening index.html directly)
             const response = await fetch('/sitemap.xml');
             
             if (response.ok) {
@@ -16,72 +16,62 @@ document.addEventListener('DOMContentLoaded', () => {
                 const xml = parser.parseFromString(text, "text/xml");
                 const locs = xml.querySelectorAll("loc");
 
-                // Convert sitemap URLs into search results
                 toolsDB = Array.from(locs).map(node => {
                     const url = node.textContent;
                     const path = new URL(url).pathname; 
 
-                    // Skip homepage or index
                     if (path === '/' || path === '/index.html') return null;
 
-                    // Clean string: remove slashes, replace dashes with spaces
                     let name = path.replace(/^\/|\/$/g, '').replace(/-/g, ' ');
-
-                    // Capitalize Words for the display title
                     name = name.replace(/\b\w/g, char => char.toUpperCase());
 
-                    // Filter out non-tool pages (Add pages you want to hide here)
                     const ignoreList = ['Contact', 'About', 'Privacy', 'Terms', 'Sitemap', 'Category', 'Author'];
                     if (ignoreList.some(ignore => name.includes(ignore))) return null;
 
-                    return { 
-                        name: name, 
-                        url: url, 
-                        // Auto-generate tags from the name for easier searching
-                        tags: name.toLowerCase() 
-                    };
-                }).filter(item => item !== null); // Remove null entries
+                    return { name: name, url: url, tags: name.toLowerCase() };
+                }).filter(item => item !== null);
 
-                console.log("Tools loaded:", toolsDB.length); // Debugging check
+                console.log(`✅ Database Loaded: ${toolsDB.length} tools found.`);
 
             } else {
-                console.warn("Sitemap.xml not found. Search will be empty.");
+                console.warn("⚠️ Sitemap.xml not found. Search results will be empty.");
             }
         } catch (error) {
-            console.error("Error auto-loading tools:", error);
+            console.error("❌ Error loading tools:", error);
         }
     }
 
-    // Run the loader immediately
     loadTools();
 
 
     // ---------------------------------------------------------
-    // 2. EXISTING UI HANDLERS (Menu & Search Overlays)
+    // 2. UI HANDLERS (Menu & Mobile Overlay)
     // ---------------------------------------------------------
     const menuBtn = document.getElementById('menuBtn');
-    const searchBtn = document.getElementById('searchBtn');
+    const searchBtn = document.getElementById('searchBtn'); // The magnifying glass icon in header
     const closeMenu = document.getElementById('closeMenu');
     const closeSearch = document.getElementById('closeSearch');
     
     const menuOverlay = document.getElementById('menuOverlay');
     const searchOverlay = document.getElementById('searchOverlay');
     
-    const searchInput = document.getElementById('globalSearchInput');
-    const resultsContainer = document.getElementById('searchResults');
-
+    // -- Input Elements --
+    const globalInput = document.getElementById('globalSearchInput'); // Overlay Input
+    const globalResults = document.getElementById('searchResults');   // Overlay Results
     
+    const heroInput = document.getElementById('heroSearchInput');     // Main Hero Input
+    const heroResults = document.getElementById('heroSearchResults'); // Main Hero Results
+
+    // Menu Logic
     if(menuBtn && menuOverlay) {
         menuBtn.addEventListener('click', () => {
             menuOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
-
         closeMenu.addEventListener('click', () => {
             menuOverlay.classList.remove('active');
             document.body.style.overflow = '';
         });
-
         menuOverlay.addEventListener('click', (e) => {
             if(e.target === menuOverlay) {
                 menuOverlay.classList.remove('active');
@@ -90,22 +80,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    
+    // Search Overlay Logic (Header Icon)
     if(searchBtn && searchOverlay) {
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.add('active');
-            if(searchInput) {
-                searchInput.value = ''; 
-                searchInput.focus(); 
-                if(resultsContainer) resultsContainer.innerHTML = ''; 
+            if(globalInput) {
+                globalInput.value = ''; 
+                globalInput.focus(); 
+                if(globalResults) globalResults.innerHTML = ''; 
             }
             document.body.style.overflow = 'hidden';
         });
 
-        closeSearch.addEventListener('click', () => {
-            searchOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
+        if(closeSearch) {
+            closeSearch.addEventListener('click', () => {
+                searchOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
 
         searchOverlay.addEventListener('click', (e) => {
             if(e.target === searchOverlay) {
@@ -115,47 +107,93 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    
     // ---------------------------------------------------------
-    // 3. SEARCH INPUT LOGIC
+    // 3. UNIVERSAL SEARCH FUNCTION
     // ---------------------------------------------------------
-    if(searchInput && resultsContainer) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            resultsContainer.innerHTML = ''; 
+    function performSearch(query, container) {
+        container.innerHTML = ''; // Clear previous results
+        
+        if(query.length === 0) {
+            container.style.display = 'none'; // Hide if empty
+            return; 
+        }
 
-            if(query.length === 0) return; 
+        // Filter logic
+        const matches = toolsDB.filter(tool => {
+            return tool.name.toLowerCase().includes(query) || 
+                   tool.tags.includes(query);
+        });
 
-            // Search the dynamically loaded toolsDB
-            const matches = toolsDB.filter(tool => {
-                return tool.name.toLowerCase().includes(query) || 
-                       tool.tags.includes(query);
+        // Display results
+        if(matches.length > 0) {
+            container.style.display = 'block'; 
+            matches.forEach(tool => {
+                const link = document.createElement('a');
+                link.href = tool.url;
+                
+                // Styling for results
+                link.style.display = 'block';
+                link.style.padding = '12px 16px';
+                link.style.borderBottom = '1px solid #f1f5f9';
+                link.style.fontSize = '1.05rem';
+                link.style.fontWeight = '500';
+                link.style.color = '#334155';
+                link.style.textDecoration = 'none';
+                link.style.transition = 'background 0.2s';
+                
+                // Hover effect
+                link.addEventListener('mouseenter', () => link.style.background = '#f8fafc');
+                link.addEventListener('mouseleave', () => link.style.background = 'transparent');
+
+                link.textContent = tool.name;
+                container.appendChild(link);
             });
+        } else {
+            container.style.display = 'block';
+            const noResult = document.createElement('div');
+            noResult.style.padding = '12px 16px';
+            noResult.style.color = '#94a3b8';
+            noResult.textContent = 'No tools found matching "' + query + '"';
+            container.appendChild(noResult);
+        }
+    }
 
-            if(matches.length > 0) {
-                matches.forEach(tool => {
-                    const link = document.createElement('a');
-                    link.href = tool.url;
-                    link.className = 'search-result-item'; // Matches your CSS
-                    
-                    // Optional inline styling for results if CSS is missing
-                    link.style.display = 'block';
-                    link.style.padding = '12px 0';
-                    link.style.borderBottom = '1px solid #eee';
-                    link.style.fontSize = '1.1rem';
-                    link.style.fontWeight = '500';
-                    
-                    link.textContent = tool.name;
-                    resultsContainer.appendChild(link);
-                });
-            } else {
-                const noResult = document.createElement('div');
-                noResult.className = 'no-results';
-                noResult.style.padding = '12px 0';
-                noResult.style.color = '#64748b';
-                noResult.textContent = 'No tools found matching "' + query + '"';
-                resultsContainer.appendChild(noResult);
-            }
+    // ---------------------------------------------------------
+    // 4. ATTACH LISTENERS TO INPUTS
+    // ---------------------------------------------------------
+    
+    // Listener for Global Overlay Search (Header)
+    if(globalInput && globalResults) {
+        globalInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            performSearch(query, globalResults);
         });
     }
+
+    // Listener for Hero Section Search (Home Page)
+    if(heroInput && heroResults) {
+        console.log("✅ Hero Search: Active and listening");
+
+        heroInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            
+            // Check if DB is ready
+            if(toolsDB.length === 0) {
+                console.warn("⚠️ Searching, but Tool Database is empty. Check sitemap.xml");
+            }
+
+            performSearch(query, heroResults);
+        });
+
+        // Hide results if clicking outside
+        document.addEventListener('click', (e) => {
+            if (!heroInput.contains(e.target) && !heroResults.contains(e.target)) {
+                heroResults.style.display = 'none';
+            }
+        });
+    } else {
+        // If this logs, the ID in HTML doesn't match the JS
+        console.log("ℹ️ Hero Search: Not detected on this page (Normal for non-home pages)");
+    }
+
 });

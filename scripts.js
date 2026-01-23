@@ -1,8 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // ---------------------------------------------------------
-    // 1. DYNAMIC TOOLS DATABASE
-    // ---------------------------------------------------------
+
     let toolsDB = [];
 
     async function loadTools() {
@@ -40,26 +37,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadTools();
 
-
-    // ---------------------------------------------------------
-    // 2. UI HANDLERS (Menu & Overlay)
-    // ---------------------------------------------------------
     const menuBtn = document.getElementById('menuBtn');
-    const searchBtn = document.getElementById('searchBtn'); // The magnifying glass icon
+    const searchBtn = document.getElementById('searchBtn'); 
     const closeMenu = document.getElementById('closeMenu');
     const closeSearch = document.getElementById('closeSearch');
     
     const menuOverlay = document.getElementById('menuOverlay');
     const searchOverlay = document.getElementById('searchOverlay');
     
-    // -- Input Elements --
-    const globalInput = document.getElementById('globalSearchInput'); // Overlay Input
-    const globalResults = document.getElementById('searchResults');   // Overlay Results
+    const globalInput = document.getElementById('globalSearchInput'); 
+    const globalResults = document.getElementById('searchResults');   
     
-    const heroInput = document.getElementById('heroSearchInput');     // Main Hero Input
-    const heroResults = document.getElementById('heroSearchResults'); // Main Hero Results
+    const heroInput = document.getElementById('heroSearchInput');     
+    const heroResults = document.getElementById('heroSearchResults'); 
 
-    // Menu Logic
     if(menuBtn && menuOverlay) {
         menuBtn.addEventListener('click', () => {
             menuOverlay.classList.add('active');
@@ -77,30 +68,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Search Overlay Logic (Magnifying Glass)
     if(searchBtn && searchOverlay) {
-        // 1. Get the search bar element to measure its height
         const searchBarEl = searchOverlay.querySelector('.search-bar'); 
 
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.add('active');
             
-            // --- FIX 1: FORCE 90% WHITE BACKGROUND ---
-            // We use cssText to add '!important' which overrides any conflicting HTML/CSS
-            searchOverlay.style.cssText = 'background-color: rgba(255, 255, 255, 0.95) !important; overflow-y: auto !important;';
+            searchOverlay.style.cssText = 'background-color: rgba(255, 255, 255, 0.5) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); overflow-y: hidden !important;';
 
             if(globalInput) {
                 globalInput.value = ''; 
                 if(globalResults) {
                     globalResults.innerHTML = '';
                     
-                    // 2. Push results down
                     const barHeight = searchBarEl ? searchBarEl.offsetHeight : 80;
-                    globalResults.style.marginTop = `${barHeight + 20}px`;
-                    globalResults.style.paddingBottom = '50px'; 
+                    globalResults.style.marginTop = `${barHeight}px`; 
+                    
+                    globalResults.style.backgroundColor = '#ffffff';
+                    globalResults.style.maxHeight = '60vh'; 
+                    globalResults.style.overflowY = 'auto'; 
+                    globalResults.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)'; 
+                    globalResults.style.borderBottomLeftRadius = '12px';
+                    globalResults.style.borderBottomRightRadius = '12px';
                 }
 
-                // 3. FIX FOR KEYBOARD
                 setTimeout(() => {
                     globalInput.focus();
                 }, 350); 
@@ -112,8 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
             searchOverlay.classList.remove('active');
             document.body.style.overflow = '';
             
-            // Clear the manual background color so it resets
-            setTimeout(() => { searchOverlay.style.cssText = ''; }, 300);
+            setTimeout(() => { 
+                searchOverlay.style.cssText = ''; 
+                if(globalResults) {
+                    globalResults.style.backgroundColor = '';
+                    globalResults.style.maxHeight = '';
+                    globalResults.style.boxShadow = '';
+                }
+            }, 300);
             
             if(globalInput) globalInput.blur();
         });
@@ -122,23 +119,28 @@ document.addEventListener('DOMContentLoaded', () => {
             if(e.target === searchOverlay) {
                 searchOverlay.classList.remove('active');
                 document.body.style.overflow = '';
-                setTimeout(() => { searchOverlay.style.cssText = ''; }, 300);
+                setTimeout(() => { 
+                    searchOverlay.style.cssText = '';
+                    if(globalResults) {
+                        globalResults.style.backgroundColor = '';
+                        globalResults.style.maxHeight = '';
+                        globalResults.style.boxShadow = '';
+                    }
+                }, 300);
                 if(globalInput) globalInput.blur();
             }
         });
     }
-    // ---------------------------------------------------------
-    // 3. UNIVERSAL SEARCH FUNCTION
-    // ---------------------------------------------------------
+    
     function performSearch(query, container) {
-        container.innerHTML = ''; // Clear previous results
+        container.innerHTML = ''; 
         
         if(query.length === 0) {
-            container.style.display = 'none'; // Hide if empty
+            container.style.display = 'none'; 
             return; 
         }
 
-        container.style.display = 'block'; // Show container
+        container.style.display = 'block'; 
 
         const matches = toolsDB.filter(tool => {
             return tool.name.toLowerCase().includes(query) || 
@@ -150,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const link = document.createElement('a');
                 link.href = tool.url;
                 
-                // Styling for results
                 link.style.display = 'block';
                 link.style.padding = '12px 16px';
                 link.style.borderBottom = '1px solid #f1f5f9';
@@ -160,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.style.textDecoration = 'none';
                 link.style.transition = 'background 0.2s';
                 
-                // Hover effect
                 link.addEventListener('mouseenter', () => link.style.background = '#f8fafc');
                 link.addEventListener('mouseleave', () => link.style.background = 'transparent');
 
@@ -176,11 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ---------------------------------------------------------
-    // 4. ATTACH LISTENERS TO INPUTS
-    // ---------------------------------------------------------
-    
-    // Listener for Global Overlay Search
     if(globalInput && globalResults) {
         globalInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
@@ -188,14 +183,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Listener for Hero Section Search
     if(heroInput && heroResults) {
         heroInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
             performSearch(query, heroResults);
         });
 
-        // Hide results if clicking outside
         document.addEventListener('click', (e) => {
             if (!heroInput.contains(e.target) && !heroResults.contains(e.target)) {
                 heroResults.style.display = 'none';

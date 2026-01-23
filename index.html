@@ -288,9 +288,11 @@
                     </svg>
                     <span class="l-bl">Calc.</span>
                 </a>
-            </div>
-            </div>
-    </header>
+        </div> <button id="searchBtn" class="icon-btn" aria-label="Search">
+            <svg class="ico-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+
+    </div> </header>
 
     <div class="hero-wrap">
         <div class="hero-bg"></div>
@@ -299,13 +301,17 @@
             <div class="badge-pill">
                 <div class="badge-dot"></div> 100% Free & Privacy Focused
             </div>
-            <h1 class="new-h1">Tools made with <br><span class="hero-span">Love & Logic.</span></h1>
+            <h1 class="new-h1">Free Online Calculators made with <br><span class="hero-span">Love & Logic.</span></h1>
             <p class="new-p">Ditch the complex spreadsheets. Access simple, private, and instant calculators for your daily needs.</p>
             
+            
             <div class="hero-search">
-                <svg class="hero-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" class="hero-inp" placeholder="Search for a tool (e.g., Asphalt, GPA)...">
-            </div>
+    <svg class="hero-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    
+    <input type="text" id="heroSearchInput" class="hero-inp" placeholder="Search for a tool (e.g., Asphalt, GPA)..." autocomplete="off">
+    
+    <div id="heroSearchResults" style="position:absolute; top:100%; left:0; right:0; background:#fff; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.1); z-index:50; margin-top:8px; display:none; max-height: 300px; overflow-y: auto;"></div>
+</div>
         </div>
     </div>
 
@@ -380,10 +386,19 @@
         </div>
 
         <div class="seo-box">
-            <h2>Smart Calculators for Everyone</h2>
-            <p><strong>LoveU Calc</strong> provides a suite of free, high-precision online calculators tailored for diverse needs. Whether you are a student grappling with <em>Long Division</em>, a contractor estimating <em>Asphalt Tonnage</em>, or an exam aspirant checking <em>Negative Marking</em> penalties, our tools are built to help.</p>
-            <p>Our mission is simple: replace complex spreadsheets and manual formulas with clean, user-friendly interfaces. We cover categories including <strong>Education</strong>, <strong>Construction</strong>, <strong>Finance</strong>, and <strong>Lifestyle</strong>, ensuring that accuracy and "Love & Logic" are at the heart of every calculation.</p>
-        </div>
+    <h2>The Best Free Online Calculators for Every Need</h2>
+    <p><strong>LoveU Calc</strong> provides a suite of high-precision tools tailored for students, contractors, and professionals. Whether you are looking for a <a href="/categories/construction-materials">Construction Calculator</a> to estimate materials or an <a href="/categories/education-academics">Education Tool</a> for your math homework, we have you covered.</p>
+    
+    <h3>Why use our tools?</h3>
+    <p>Unlike old-school spreadsheets, our <strong>free online calculators</strong> work instantly on mobile and desktop. We focus on four main pillars:</p>
+    <ul>
+        <li><strong>Construction & Engineering:</strong> Accurate estimates for asphalt, concrete, and flooring.</li>
+        <li><strong>Math & Education:</strong> Solvers for long division, GPA, and fractions.</li>
+        <li><strong>Finance:</strong> Tools for interest, loans, and savings.</li>
+        <li><strong>Everyday Life:</strong> Health, age, and time date calculations.</li>
+    </ul>
+    <p>Our mission is simple: replace complex manual formulas with clean, user-friendly interfaces. Every calculation is processed locally or instantly, ensuring your data remains private.</p>
+</div>
 
         <div class="cta-box">
             <div class="cta-content">

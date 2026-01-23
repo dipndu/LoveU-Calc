@@ -85,25 +85,22 @@ document.addEventListener('DOMContentLoaded', () => {
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.add('active');
             
-            // 2. Allow scrolling on the overlay wrapper
-            searchOverlay.style.overflowY = 'auto'; 
-            
-            // --- FIX: Make background solid white so text is readable ---
-            // This covers the background content completely
-            searchOverlay.style.backgroundColor = '#ffffff';
+            // --- FIX 1: FORCE 90% WHITE BACKGROUND ---
+            // We use cssText to add '!important' which overrides any conflicting HTML/CSS
+            searchOverlay.style.cssText = 'background-color: rgba(255, 255, 255, 0.95) !important; overflow-y: auto !important;';
 
             if(globalInput) {
                 globalInput.value = ''; 
                 if(globalResults) {
                     globalResults.innerHTML = '';
                     
-                    // 3. Push results down dynamically so they aren't hidden behind the bar
+                    // 2. Push results down
                     const barHeight = searchBarEl ? searchBarEl.offsetHeight : 80;
                     globalResults.style.marginTop = `${barHeight + 20}px`;
                     globalResults.style.paddingBottom = '50px'; 
                 }
 
-                // 4. FIX FOR KEYBOARD: Wait for the 0.3s transition to finish
+                // 3. FIX FOR KEYBOARD
                 setTimeout(() => {
                     globalInput.focus();
                 }, 350); 
@@ -115,8 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
             searchOverlay.classList.remove('active');
             document.body.style.overflow = '';
             
-            // Reset background color to default CSS just in case
-            setTimeout(() => { searchOverlay.style.backgroundColor = ''; }, 300);
+            // Clear the manual background color so it resets
+            setTimeout(() => { searchOverlay.style.cssText = ''; }, 300);
             
             if(globalInput) globalInput.blur();
         });
@@ -125,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(e.target === searchOverlay) {
                 searchOverlay.classList.remove('active');
                 document.body.style.overflow = '';
-                setTimeout(() => { searchOverlay.style.backgroundColor = ''; }, 300);
+                setTimeout(() => { searchOverlay.style.cssText = ''; }, 300);
                 if(globalInput) globalInput.blur();
             }
         });

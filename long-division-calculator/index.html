@@ -21,6 +21,13 @@
     <meta property="og:title" content="Long Division Calculator - Step-by-Step Solver">
     <meta property="og:description" content="Watch the problem solve itself row-by-row. Features dyscalculia support, PDF worksheets, and step-by-step visuals.">
 
+    <meta property="og:image" content="https://loveucalc.com/assets/long-division-social.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://loveucalc.com/assets/long-division-social.jpg">
+
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -209,6 +216,14 @@
 .foot-col a { display: block; margin-bottom: 0.8rem; color: #e2e8f0; }
 .foot-col a:hover { color: #ffffff; transform: translateX(3px); }
 .foot-btm { border-top: 1px solid #1f2937; padding-top: 1.5rem; text-align: center; color: #cbd5e1; font-size: 0.85rem; }
+
+.faq-item { border-bottom: 1px solid var(--bord); margin-bottom: 10px; }
+    .faq-q { font-weight: 700; cursor: pointer; padding: 15px 0; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-q::after { content: '+'; font-size: 1.5rem; color: var(--bl); font-weight: 400; }
+    details[open] .faq-q::after { content: '-'; color: var(--pk); }
+    .faq-a { padding-bottom: 15px; color: var(--mut); }
+
     </style>
 </head>
 <body>
@@ -255,9 +270,21 @@
 
     <main class="container">
         <div class="limiter">
-            <nav style="margin-bottom:1.5rem; color:var(--mut); font-size:0.9rem;">
-                <a href="/">Home</a> / <a href="/categories/education-academics">Education</a>
-            </nav>
+            <nav aria-label="Breadcrumb" style="margin-bottom:1.5rem; color:var(--mut); font-size:0.9rem;">
+    <ol style="list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; align-items:center;">
+        <li style="display:inline;">
+            <a href="/" style="text-decoration:none; color:var(--mut);">Home</a>
+            <span style="margin:0 8px; color:var(--bord);">/</span>
+        </li>
+        <li style="display:inline;">
+            <a href="/categories/education-academics" style="text-decoration:none; color:var(--mut);">Education</a>
+            <span style="margin:0 8px; color:var(--bord);">/</span>
+        </li>
+        <li style="display:inline;" aria-current="page">
+            <span style="color:var(--bl); font-weight:600;">Long Division Calculator</span>
+        </li>
+    </ol>
+</nav>
 
             <div style="margin-bottom: 2rem;">
                 <h1 style="font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem 0; letter-spacing: -1px;">Long Division Calculator</h1>
@@ -321,18 +348,17 @@
             </div>
 
             <article class="content">
-                <p>Whether you are a student checking your homework, a parent re-learning "new math," or a teacher creating lesson plans, our tool is designed according to your requirements. Unlike basic calculators that just show a final value, our tool is a <strong>long division step by step calculator</strong>. It shows every step- the subtraction, the "bring down" steps, and the final remainder- exactly as you write on paper.</p>
 
-                <div class="step-visual-container">
-                    <div class="step-visual-content">
-<div style="margin-left:2.5ch; margin-bottom:5px; color:var(--c-quo); font-weight:800;">QUOTIENT (Answer)</div>
-<div style="font-size:1.8rem; line-height:1; display:flex; align-items:baseline;">
-    <span style="color:var(--pk); font-weight:800;">DIVISOR</span>
-    <span style="margin:0 5px;">)</span>
-    <span style="color:var(--bl); font-weight:800; border-top:2px solid #000; padding-top:2px;">DIVIDEND</span>
+                <div style="background:#f1f5f9; padding:1rem; border-radius:12px; margin-bottom:2rem; font-size:0.95rem;">
+    <p style="font-weight:700; margin:0 0 0.5rem 0;">Table of Contents</p>
+    <ul style="margin:0; padding-left:1.2rem;">
+        <li><a href="#how-to">How to Use This Tool</a></li>
+        <li><a href="#steps">The 4 Steps (DMSB)</a></li>
+        <li><a href="#modes">Decimal vs. Remainder Mode</a></li>
+        <li><a href="#faq">FAQ</a></li>
+    </ul>
 </div>
-                    </div>
-                </div>
+                <p>Whether you are a student checking your homework, a parent re-learning "new math," or a teacher creating lesson plans, our tool is designed according to your requirements. Unlike basic calculators that just show a final value, our tool is a <strong>long division step by step calculator</strong>. It shows every step- the subtraction, the "bring down" steps, and the final remainder- exactly as you write on paper.</p>
 
                 <h2>Features of This Tool</h2>
                 <p>We designed this tool to make it one of the most comprehensive <strong>long division calculator with work shown</strong> on the web.</p>
@@ -349,9 +375,12 @@
                     <li><strong>Dyscalculia Support:</strong> A unique "Access Mode" that adds high-contrast grid lines and easier-to-read fonts for students with learning differences.</li>
                     <li><strong>Auto Mode:</strong> If you feel bored with clicking on the Next button again and again, just click on the Auto button and watch the steps play</li>
                     <li><strong>PDF Worksheets:</strong> You can instantly download worksheets based on the current problem to practice long division on your own.</li>
+                <p style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--mut);">
+    <em><strong>Student Tip:</strong> After mastering division, you can check your exam scores using our <a href="/negative-marking-calculator/" style="color:var(--bl); text-decoration:underline;">Negative Marking Calculator</a>.</em>
+</p>
                 </ol>
 
-                <h2>How to Use This Calculator</h2>
+                 <h2 id="how-to">How to Use This Calculator</h2>
                 <p>Using this <strong>long division calculator</strong> is intuitive. Follow these steps to get your solution:</p>
                 <ol>
                     <li><strong>Enter the Dividend:</strong> Type the number you want to divide (the large number) into the first box.</li>
@@ -366,14 +395,22 @@
                     <li><strong>Solve:</strong> Click "Solve Step-by-Step." You can then use the Auto/Next buttons to watch the math unfold at your own pace.</li>
                 </ol>
 
-                <h2>How to perform long division?</h2>
-                <p>If you are using this tool to learn, it is important to understand the rhythm of long division. We follow the standard algorithmic cycle:</p>
+                <h2 id="steps">How to Perform Long Division (DMSB)</h2>
+                <p>If you are using this tool to learn, it is important to understand the rhythm of long division. We follow the standard <a href="https://www.mathsisfun.com/long_division.html" target="_blank" rel="noopener noreferrer" style="color:var(--bl); text-decoration:underline;">algorithmic cycle</a>:</p>
                 <ol>
                     <li><strong>Divide:</strong> How many times does the divisor fit into the current digit?</li>
                     <li><strong>Multiply:</strong> Multiply that number by the divisor.</li>
                     <li><strong>Subtract:</strong> Find the difference.</li>
                     <li><strong>Bring Down:</strong> Bring the next digit down to continue.</li>
                 </ol>
+
+
+                <figure style="margin: 2rem 0; text-align: center;">
+    <img src="./parts-of-division.webp" alt="Diagram showing the parts of a division problem: Dividend, Divisor, Quotient, and Remainder" width="800" height="450" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" loading="lazy">
+    <figcaption style="font-size: 0.9rem; color: var(--mut); margin-top: 0.5rem; font-style: italic;">
+        The three key parts of every division problem.
+    </figcaption>
+</figure>
 
                 <h3>Example: 175 ÷ 5</h3>
                 <p>When you enter this into our long division calculator with work shown, here is what happens:</p>
@@ -433,7 +470,7 @@
 
                 <p><strong>Final Answer:</strong> 35.</p>
 
-                <h2>Remainder Mode (The "Cookie" Method)</h2>
+                <h2 id="modes">Remainder Mode (The "Cookie" Method)</h2>
                 <p>Used in elementary school. If you have 10 cookies and 3 friends:</p>
                 <div class="info-box">
                     <p style="margin:0;">10 ÷ 3 = 3 cookies each.<br>
@@ -451,15 +488,21 @@
                 <p>Math should be accessible to everyone. Many students struggle with long division not because they don't understand the logic, but because the numbers seem to "float" on the page.</p>
                 <p>By toggling the Access Mode on our tool, we apply a high-contrast overlay and strict grid alignment. This helps users visually track columns (Place Value) without getting lost, making it one of the most accessible calculator long division tools available.</p>
 
-                <h2>Frequently Asked Questions (FAQ)</h2>
-                <h3>Q. Can this calculator solve for decimals?</h3>
-                <p>A: Yes. Simply select "Decimal Mode" at the top of the tool. It is a fully functional and comprehensive long division calculator with steps decimals supported.</p>
-
-                <h3>Q: Does this tool solve polynomials?</h3>
-                <p>A: No, this tool is designed for arithmetic long division (numbers). For algebraic equations (like x² + 2x), you would need a specific polynomial solver.</p>
-
-                <h3>Q: Can I print the solution?</h3>
-                <p>A: Yes! Click the "PDF Worksheet" button to generate a clean, printable version of the current problem and solution steps. It is perfect for homework or classroom handouts.</p>
+                <h2 id="faq">Frequently Asked Questions (FAQ)</h2>
+<div class="faq-section">
+    <details class="faq-item">
+        <summary class="faq-q">Can this calculator solve for decimals?</summary>
+        <div class="faq-a"><p>Yes. Simply select "Decimal Mode" at the top of the tool. It is a fully functional and comprehensive long division calculator with steps decimals supported.</p></div>
+    </details>
+    <details class="faq-item">
+        <summary class="faq-q">Does this tool solve polynomials?</summary>
+        <div class="faq-a"><p>No, this tool is designed for arithmetic long division (numbers). For algebraic equations (like x² + 2x), you would need a specific polynomial solver.</p></div>
+    </details>
+    <details class="faq-item">
+        <summary class="faq-q">Can I print the solution?</summary>
+        <div class="faq-a"><p>Yes! Click the "PDF Worksheet" button to generate a clean, printable version of the current problem and solution steps. It is perfect for homework or classroom handouts.</p></div>
+    </details>
+</div>
             </article>
         </div>
     </main>

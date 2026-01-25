@@ -1,5 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ---------------------------------------------------------
+    // 0. NEW CATEGORY INJECTION (Dynamic Menu)
+    // ---------------------------------------------------------
+    // We target the navigation container inside the drawer
+    const navContainer = document.querySelector('.drawer .nav-lnk');
+    
+    if (navContainer) {
+        // Create the new link element
+        const newLink = document.createElement('a');
+        
+        // Set the attributes to match your existing links
+        newLink.href = '/categories/engineering'; // The URL for the new category
+        newLink.textContent = 'Engineering';      // The text to display
+        
+        // Append it to the end of the list
+        navContainer.appendChild(newLink);
+    }
+
+
+    // ---------------------------------------------------------
+    // 1. DYNAMIC TOOLS DATABASE
+    // ---------------------------------------------------------
     let toolsDB = [];
 
     async function loadTools() {
@@ -37,6 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadTools();
 
+
+    // ---------------------------------------------------------
+    // 2. UI HANDLERS (Menu & Overlay)
+    // ---------------------------------------------------------
     const menuBtn = document.getElementById('menuBtn');
     const searchBtn = document.getElementById('searchBtn'); 
     const closeMenu = document.getElementById('closeMenu');
@@ -45,12 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuOverlay = document.getElementById('menuOverlay');
     const searchOverlay = document.getElementById('searchOverlay');
     
+    // -- Input Elements --
     const globalInput = document.getElementById('globalSearchInput'); 
     const globalResults = document.getElementById('searchResults');   
     
     const heroInput = document.getElementById('heroSearchInput');     
     const heroResults = document.getElementById('heroSearchResults'); 
 
+    // Menu Logic
     if(menuBtn && menuOverlay) {
         menuBtn.addEventListener('click', () => {
             menuOverlay.classList.add('active');
@@ -68,49 +96,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Search Overlay Logic (Magnifying Glass)
     if(searchBtn && searchOverlay) {
         const searchBarEl = searchOverlay.querySelector('.search-bar'); 
 
         searchBtn.addEventListener('click', () => {
-            searchOverlay.classList.add('active');
+            // 1. PREPARE LAYOUT FIRST (Prevents "Jump")
+            // We set the top margin BEFORE showing the overlay
+            const barHeight = searchBarEl ? searchBarEl.offsetHeight : 80;
             
-            searchOverlay.style.cssText = 'background-color: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; overflow-y: hidden !important;';
-
-            if(globalInput) {
-                globalInput.value = ''; 
-                if(globalResults) {
-                    globalResults.innerHTML = '';
-                    
-                    const barHeight = searchBarEl ? searchBarEl.offsetHeight : 80;
-                    globalResults.style.marginTop = `${barHeight}px`; 
-                    
-                    globalResults.style.backgroundColor = '#ffffff';
-                    globalResults.style.maxHeight = '60vh'; 
-                    globalResults.style.overflowY = 'auto'; 
-                    globalResults.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)'; 
-                    globalResults.style.borderBottomLeftRadius = '12px';
-                    globalResults.style.borderBottomRightRadius = '12px';
-                    globalResults.style.border = '1px solid #e2e8f0';
-                }
-
-                setTimeout(() => {
-                    globalInput.focus();
-                }, 350); 
+            if(globalResults) {
+                globalResults.style.marginTop = `${barHeight}px`; 
+                globalResults.innerHTML = ''; // Clear old results
+                
+                // Style the dropdown
+                globalResults.style.backgroundColor = '#ffffff';
+                globalResults.style.maxHeight = '60vh'; 
+                globalResults.style.overflowY = 'auto'; 
+                globalResults.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)'; 
+                globalResults.style.borderBottomLeftRadius = '12px';
+                globalResults.style.borderBottomRightRadius = '12px';
+                globalResults.style.display = 'none'; // Keep hidden until typing
             }
+
+            if(globalInput) globalInput.value = ''; 
+
+            // 2. APPLY STYLES
+            searchOverlay.style.cssText = 'background-color: rgba(255, 255, 255, 0.5) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); overflow-y: hidden !important;';
+
+            // 3. ACTIVATE ANIMATION (Slide Down)
+            // Adding 'active' now ensures the layout is already fixed
+            searchOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            // 4. FOCUS INPUT
+            setTimeout(() => {
+                if(globalInput) globalInput.focus();
+            }, 350); 
         });
 
         closeSearch.addEventListener('click', () => {
             searchOverlay.classList.remove('active');
             document.body.style.overflow = '';
             
+            // Clean up styles after animation ends
             setTimeout(() => { 
                 searchOverlay.style.cssText = ''; 
                 if(globalResults) {
                     globalResults.style.backgroundColor = '';
                     globalResults.style.maxHeight = '';
                     globalResults.style.boxShadow = '';
-                    globalResults.style.border = '';
+                    globalResults.style.marginTop = '';
                 }
             }, 300);
             
@@ -127,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         globalResults.style.backgroundColor = '';
                         globalResults.style.maxHeight = '';
                         globalResults.style.boxShadow = '';
-                        globalResults.style.border = '';
+                        globalResults.style.marginTop = '';
                     }
                 }, 300);
                 if(globalInput) globalInput.blur();
@@ -135,6 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // ---------------------------------------------------------
+    // 3. UNIVERSAL SEARCH FUNCTION
+    // ---------------------------------------------------------
     function performSearch(query, container) {
         container.innerHTML = ''; 
         
@@ -179,6 +218,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ---------------------------------------------------------
+    // 4. ATTACH LISTENERS TO INPUTS
+    // ---------------------------------------------------------
+    
     if(globalInput && globalResults) {
         globalInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();

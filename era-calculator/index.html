@@ -1,1 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>ERA Calculator (Baseball & Softball) - 7 & 9 Innings | LoveU Calc</title>
+    <meta name="description" content="Calculate baseball ERA (Earned Run Average) instantly. Supports partial innings (e.g., 5.1, 5.2) for accurate pitching stats. Free tool for players and coaches.">
+    <meta name="keywords" content="era calculator, baseball era, earned run average, pitching stats, baseball calculator, innings pitched calculator">
+    <meta name="author" content="LoveU Calc">
+    <link rel="canonical" href="https://loveucalc.com/era-calculator/">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://loveucalc.com/era-calculator/">
+    <meta property="og:title" content="ERA Calculator - Calculate Baseball Earned Run Average">
+    <meta property="og:description" content="Calculate your official Earned Run Average. Smart tool handles partial innings (5.1/5.2) automatically.">
+    <meta property="og:image" content="https://loveucalc.com/assets/era-calculator-social.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://loveucalc.com/assets/era-calculator-social.jpg">
+
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"ERA Calculator","url":"https://loveucalc.com/era-calculator/","applicationCategory":"SportsApplication","operatingSystem":"All","description":"A free online baseball calculator to determine Earned Run Average (ERA) based on earned runs allowed and innings pitched.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":"Standard ERA Calculation, Target Planner, Partial Innings Support, Benchmarking","author":{"@type":"Organization","name":"LoveU Calc"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://loveucalc.com/"},{"@type":"ListItem","position":2,"name":"Sports Calculators","item":"https://loveucalc.com/categories/sports"},{"@type":"ListItem","position":3,"name":"ERA Calculator","item":"https://loveucalc.com/era-calculator/"}]},{"@type":"HowTo","name":"How to Use the ERA Calculator","step":[{"@type":"HowToStep","name":"Select Mode","text":"Choose between Standard ERA or Target Planner mode."},{"@type":"HowToStep","name":"Enter Values","text":"Input earned runs, innings pitched, or current/target ERA as required."},{"@type":"HowToStep","name":"Calculate","text":"Click Calculate to see results including ERA, benchmarks, and details."},{"@type":"HowToStep","name":"Reset","text":"Use Reset to clear inputs and start over."}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is ERA in baseball?","acceptedAnswer":{"@type":"Answer","text":"Earned Run Average (ERA) measures a pitcher's effectiveness by calculating the average number of earned runs allowed per nine innings pitched."}},{"@type":"Question","name":"How to calculate ERA with partial innings?","acceptedAnswer":{"@type":"Answer","text":"Convert partial innings: 5.1 = 5 + 1/3 innings. Formula: (Earned Runs * 9) / Total Innings."}},{"@type":"Question","name":"What is a good ERA?","acceptedAnswer":{"@type":"Answer","text":"Below 3.00 is elite, 3.00-4.00 is good, above 5.00 is poor in MLB."}}]}]}
+    </script>
+
+    <style>
+        /* --- 1. GLOBAL VARIABLES --- */
+        :root {
+            --bg: #f8fafc; --surf: #ffffff;
+            --txt: #0f172a; --mut: #475569; --bord: #cbd5e1;
+            --pk: #db2777; --bl: #2563eb; --grn: #059669;
+            --grad: linear-gradient(135deg, #db2777 0%, #2563eb 100%);
+            --rad: 16px; --shad: 0 1px 3px rgba(0,0,0,0.05);
+            --shad-h: 0 10px 15px -3px rgba(0,0,0,0.05);
+        }
+
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--txt); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        
+        .container { max-width: 1000px; width: 100%; margin: 0 auto; padding: 0 1.5rem; }
+        .limiter { max-width: 800px; width: 100%; margin: 0 auto; }
+        @media (max-width: 480px) { .container { padding: 0 1.25rem; } }
+        
+        header { 
+            padding: 1rem 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 50; 
+            background: #ffffff; 
+            border-bottom: 1px solid #e2e8f0; 
+        }
+        
+        .head-in { display: flex; justify-content: space-between; align-items: center; }
+        .head-l { display: flex; align-items: center; gap: 1.2rem; }
+        .icon-btn { background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .icon-btn:hover { background: rgba(0,0,0,0.04); }
+        .ico-burger { width: 22px; height: 2.5px; background: var(--txt); position: relative; border-radius: 2px; }
+        .ico-burger::before, .ico-burger::after { content: ''; position: absolute; left: 0; width: 22px; height: 2.5px; background: var(--txt); border-radius: 2px; }
+        .ico-burger::before { top: -7px; } .ico-burger::after { top: 7px; }
+        .ico-svg { width: 24px; height: 24px; fill: none; stroke: var(--txt); stroke-width: 2.5; stroke-linecap: round; }
+        
+        .logo { display: flex; align-items: baseline; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; color: var(--txt); }
+        .l-pk { color: var(--pk); } .l-bl { color: var(--bl); }
+        .l-svg { width: 22px; height: 22px; margin: 0 2px 0 4px; transform: rotate(-15deg); transform-origin: bottom center; position: relative; top: 2px; }
+
+        footer { background: #111827; border-top: 1px solid #1f2937; padding: 4rem 0 2rem; margin-top: auto; font-size: 0.95rem; }
+        .foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        @media (max-width: 768px) { .foot-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; } }
+        .foot-brand h3 { margin: 0 0 1rem; font-size: 1.4rem; font-weight: 800; display: inline-flex; align-items: baseline; color: #ffffff; }
+        .foot-brand .l-svg { width: 20px; height: 20px; margin: 0 2px; }
+        .foot-brand p { color: #e2e8f0; max-width: 300px; line-height: 1.6; }
+        @media (max-width: 768px) { .foot-brand p { margin: 0 auto; } }
+        .foot-col h4 { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 1.2rem; color: #ffffff; }
+        .foot-col a { display: block; margin-bottom: 0.8rem; color: #e2e8f0; }
+        .foot-col a:hover { color: #ffffff; transform: translateX(3px); }
+        .foot-btm { border-top: 1px solid #1f2937; padding-top: 1.5rem; text-align: center; color: #cbd5e1; font-size: 0.85rem; }
+        .calc-card { background: var(--surf); padding: 2rem; border-radius: 16px; border: 1px solid var(--bord); box-shadow: var(--shad); margin-bottom: 3rem; width: 100%; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+        
+        label { display: block; font-weight: 700; margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .inp-grp { display: flex; width: 100%; border-radius: var(--rad); overflow: hidden; border: 1px solid var(--bord); transition: 0.2s; background: #fff; }
+        .inp-grp:focus-within { border-color: var(--bl); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        .inp-grp input { flex: 1; padding: 12px 16px; font-size: 1.1rem; border: none; outline: none; width: 100%; color: var(--txt); min-height: 48px; background: transparent; }
+        .inp-grp select { background: #f8fafc; border: none; border-left: 1px solid var(--bord); padding: 0 16px; font-weight: 600; color: var(--mut); outline: none; cursor: pointer; }
+        
+        .full-sel { width: 100%; padding: 12px 16px; border-radius: var(--rad); border: 1px solid var(--bord); font-size: 1rem; background: #fff; min-height: 48px; }
+
+        .btn-act { width: 100%; background: var(--grad); color: #fff; border: none; padding: 16px; font-weight: 700; border-radius: var(--rad); cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.2s; min-height: 54px; margin-bottom: 1rem; }
+        .btn-act:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(37,99,235,0.2); }
+        .btn-res { background: none; border: none; color: var(--mut); margin-top: 1rem; text-decoration: underline; cursor: pointer; }
+
+        .res-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--rad); padding: 2rem; margin-top: 2rem; text-align: center; display: none; }
+        .res-box.visible { display: block; animation: popIn 0.3s; }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        .res-val { font-size: 3rem; font-weight: 900; line-height: 1; color: var(--bl); margin-bottom: 0.5rem; }
+        .res-lbl { font-size: 0.9rem; font-weight: 700; color: var(--mut); text-transform: uppercase; letter-spacing: 1px; }
+        
+        .sig { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed var(--bord); font-size: 0.9rem; color: var(--mut); font-weight: 500; }
+
+        /* Article Styling */
+        .content { margin-top: 4rem; padding-bottom: 2rem; }
+        .content h2 { font-size: 1.5rem; font-weight: 800; margin: 2.5rem 0 1rem; letter-spacing: -0.5px; color: var(--txt); }
+        .content h3 { font-size: 1.25rem; font-weight: 700; margin: 2rem 0 0.8rem; color: var(--txt); }
+        .content p { margin-bottom: 1.2rem; font-size: 1.05rem; color: var(--mut); }
+        .content ul, .content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; color: var(--mut); }
+        .content li { margin-bottom: 0.5rem; font-size: 1.05rem; }
+        .text-highlight { color: var(--bl); font-weight: 700; }
+        .formula-box { background: #f1f5f9; padding: 1.5rem; border-radius: 8px; text-align: center; font-family: monospace; font-size: 1.2rem; margin: 1.5rem 0; border: 1px solid var(--bord); color: var(--bl); font-weight: 700; }
+
+        .ov-lay { position: fixed; inset: 0; background: rgba(15,23,42,0.4); backdrop-filter: blur(4px); z-index: 100; opacity: 0; visibility: hidden; transition: 0.2s; }
+        .ov-lay.active { opacity: 1; visibility: visible; }
+        .drawer { position: fixed; inset: 0 auto 0 0; width: 300px; background: var(--surf); z-index: 101; padding: 2rem; transform: translateX(-100%); transition: 0.3s; }
+        .ov-lay.active .drawer { transform: translateX(0); }
+        .search-bar { position: fixed; inset: 0 0 auto 0; background: var(--surf); z-index: 101; padding: 1.5rem; transform: translateY(-100%); transition: 0.3s; border-bottom: 1px solid var(--bord); display: flex; gap: 1rem; }
+        .ov-lay.active .search-bar { transform: translateY(0); }
+        .cls-btn { font-size: 1.8rem; background: none; border: none; cursor: pointer; color: var(--mut); }
+        .nav-lnk a { display: block; padding: 12px 0; border-bottom: 1px solid var(--bord); font-weight: 600; }
+        .search-inp { width: 100%; padding: 12px 0; font-size: 1.2rem; border: none; border-bottom: 2px solid var(--bord); outline: none; }
+
+        /* --- 1. TABS --- */
+        .mode-tabs {
+            display: flex; gap: 10px; margin-bottom: 20px; 
+            border-bottom: 1px solid var(--bord); padding-bottom: 15px;
+        }
+        .tab-btn {
+            flex: 1; text-align: center; padding: 10px;
+            border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; border: 1px solid var(--bord);
+            color: var(--mut); transition: all 0.2s;
+            background: var(--bg); display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .tab-btn.active {
+            background: var(--bl); color: #fff; border-color: var(--bl);
+        }
+        .tab-btn:hover:not(.active) { background: rgba(0,0,0,0.04); }
+
+        /* --- 2. INPUTS (Universal Fix) --- */
+        .input-wrapper {
+            display: flex; width: 100%; border: 1px solid var(--bord);
+            border-radius: 6px; background: var(--surf); overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .input-wrapper:focus-within { border-color: var(--bl); }
+        .input-error { border-color: #ef4444 !important; }
+
+        .tool-input {
+            flex: 1; padding: 10px; border: none; background: transparent;
+            color: var(--txt); font-size: 1rem; outline: none; width: 100%; min-width: 0;
+        }
+
+        /* --- 3. SPLIT INPUT (The "Drop Down" Fix) --- */
+        .split-input-container {
+            display: flex; 
+            gap: 10px; 
+            align-items: stretch; 
+            width: 100%;
+            flex-wrap: wrap; 
+        }
+        
+        #wrap-ip {
+            flex: 1 1 150px; 
+            min-width: 150px; 
+        }
+
+        .outs-selector {
+            display: flex; 
+            flex: 1 1 auto; 
+            border: 1px solid var(--bord); 
+            border-radius: 6px; 
+            overflow: hidden; 
+            background: var(--surf);
+            min-width: 140px; 
+        }
+        
+        .btn-out {
+            flex: 1; 
+            border: none; background: transparent; padding: 10px 0; cursor: pointer;
+            font-weight: 600; color: var(--mut); transition: 0.2s; 
+            border-right: 1px solid var(--bord); font-size: 0.9rem;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .btn-out:last-child { border-right: none; }
+        .btn-out.active { background: var(--bl); color: white; }
+        .btn-out:hover:not(.active) { background: rgba(0,0,0,0.04); }
+
+        /* --- 4. NEW SEGMENTED CONTROL (Game Type) --- */
+        .seg-control {
+            display: flex;
+            background: var(--bg);
+            border: 1px solid var(--bord);
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 20px;
+            gap: 4px;
+        }
+        .seg-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--mut);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .seg-btn.active {
+            background: var(--bl);
+            color: #fff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .seg-btn:hover:not(.active) {
+            background: rgba(0,0,0,0.05);
+        }
+
+        /* --- 5. RESULTS --- */
+        .result-container {
+            display: none; margin-top: 25px; padding-top: 25px;
+            border-top: 1px dashed var(--bord); animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .big-number {
+            font-size: 3rem; font-weight: 900; color: var(--bl);
+            line-height: 1.1; margin-bottom: 5px;
+        }
+        .sub-number {
+            font-size: 0.9rem; font-weight: 500; color: var(--mut);
+            line-height: 1.4;
+        }
+
+        .result-badge {
+            display: inline-block; padding: 4px 12px; border-radius: 20px;
+            font-size: 0.8rem; font-weight: 600; margin-top: 10px;
+        }
+        .badge-excellent { background: #10b981; color: white; } 
+        .badge-good { background: #3b82f6; color: white; }      
+        .badge-avg { background: #f59e0b; color: white; }       
+        .badge-poor { background: #ef4444; color: white; }      
+
+        /* Tables */
+        .data-card {
+            background: var(--surf); padding: 15px; border-radius: 8px; 
+            border: 1px solid var(--bord); margin-top: 15px;
+        }
+        .data-card h3 {
+            font-size: 0.95rem; margin-bottom: 10px; color: var(--txt);
+            border-bottom: 1px solid var(--bord); padding-bottom: 8px;
+        }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .data-table td { padding: 6px 0; border-bottom: 1px solid var(--bord); color: var(--mut); }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table td:last-child { text-align: right; font-weight: 600; color: var(--txt); }
+
+        /* Legend Box */
+        .legend-box {
+            background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6;
+            padding: 12px; border-radius: 8px; margin-top: 15px;
+            color: var(--txt); font-size: 0.85rem; line-height: 1.5;
+        }
+
+        .faq-item { border-bottom: 1px solid var(--bord); margin-bottom: 10px; }
+    .faq-q { font-weight: 700; cursor: pointer; padding: 15px 0; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-q::after { content: '+'; font-size: 1.5rem; color: var(--bl); font-weight: 400; }
+    details[open] .faq-q::after { content: '-'; color: var(--pk); }
+    .faq-a { padding-bottom: 15px; color: var(--mut); }
+    </style>
+</head>
+<body>
+
+    <div id="menuOverlay" class="ov-lay" aria-hidden="true">
+        <div class="drawer">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2rem;">
+                <span style="font-weight:800; font-size:1.4rem;">Menu</span>
+                <button id="closeMenu" class="cls-btn" aria-label="Close">&times;</button>
+            </div>
+            <nav class="nav-lnk">
+                <a href="/">Home</a>
+                
+            </nav>
+        </div>
+    </div>
+
+    <div id="searchOverlay" class="ov-lay" aria-hidden="true">
+        <div class="search-bar">
+            <input type="text" id="globalSearchInput" class="search-inp" placeholder="Search tools..." autocomplete="off">
+            <button id="closeSearch" class="cls-btn" aria-label="Close">&times;</button>
+        </div>
+        <div id="searchResults" class="container" style="padding-top:1rem;"></div>
+    </div>
+
+    <header>
+        <div class="container head-in">
+            <div class="head-l">
+                <button id="menuBtn" class="icon-btn" aria-label="Menu"><div class="ico-burger"></div></button>
+                <a href="/" class="logo">
+                    <span class="l-pk">Love</span>
+                    <svg class="l-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs><linearGradient id="uG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#db2777"/><stop offset="100%" style="stop-color:#2563eb"/></linearGradient></defs>
+                        <path d="M 20 10 L 20 60 Q 20 90 50 90 Q 80 90 80 60 L 80 10" stroke="url(#uG)" stroke-width="28" stroke-linecap="round"/>
+                    </svg>
+                    <span class="l-bl">Calc.</span>
+                </a>
+            </div>
+            <button id="searchBtn" class="icon-btn" aria-label="Search"><svg class="ico-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="limiter">
+            <nav aria-label="Breadcrumb" style="margin-bottom:1.5rem; color:var(--mut); font-size:0.9rem;">
+                <ol style="list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; align-items:center;">
+                    <li style="display:inline;"><a href="/" style="text-decoration:none; color:var(--mut);">Home</a><span style="margin:0 8px; color:var(--bord);">/</span></li>
+                    <li style="display:inline;"><a href="/categories/sports" style="text-decoration:none; color:var(--mut);">Sports</a><span style="margin:0 8px; color:var(--bord);">/</span></li>
+                    <li style="display:inline;" aria-current="page"><span style="color:var(--bl); font-weight:600;">ERA Calculator</span></li>
+                </ol>
+            </nav>
+
+            <div style="margin-bottom: 2rem;">
+                <h1 style="font-size: 2rem; font-weight: 800; margin: 0 0 0.5rem 0; letter-spacing: -1px;">ERA Calculator</h1>
+                <p style="color: var(--mut); font-size: 1.1rem;">Pitching is an art, but analysing it is pure math. Knowing your Earned Run Average (ERA) is non-negotiable. Use the all-in-one <span class="text-highlight">ERA calculator</span> below to instantly generate accurate stats.</p>
+            </div>
+
+            <div class="calc-card">
+                
+                <div class="seg-control">
+                    <button class="seg-btn active" onclick="setInnings(9)" id="btnInning9">Standard (9 Innings)</button>
+                    <button class="seg-btn" onclick="setInnings(7)" id="btnInning7">Softball (7 Innings)</button>
+                </div>
+
+                <div class="mode-tabs">
+                    <button class="tab-btn active" onclick="switchMode('standard')" id="tab-standard">
+                        Standard ERA
+                    </button>
+                    <button class="tab-btn" onclick="switchMode('reverse')" id="tab-reverse">
+                        Target Planner
+                    </button>
+                </div>
+                
+                <div id="mode-standard">
+                    <div class="grid-2">
+                        <div>
+                            <label class="input-label" for="earnedRuns">Earned Runs (ER)</label>
+                            <div class="input-wrapper" id="wrap-er">
+                                <input type="number" id="earnedRuns" class="tool-input" placeholder="e.g. 3" min="0" step="1">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="input-label">Innings Pitched (IP)</label>
+                            <div class="split-input-container">
+                                <div class="input-wrapper" id="wrap-ip">
+                                    <input type="number" id="ipFull" class="tool-input" placeholder="Full Innings" min="0">
+                                </div>
+                                <div class="outs-selector">
+                                    <button type="button" class="btn-out active" onclick="setOuts(0)" id="out0">.0</button>
+                                    <button type="button" class="btn-out" onclick="setOuts(1)" id="out1">.1</button>
+                                    <button type="button" class="btn-out" onclick="setOuts(2)" id="out2">.2</button>
+                                </div>
+                            </div>
+                            <input type="hidden" id="selectedOuts" value="0">
+                            <div style="font-size:0.75rem; color:var(--mut); margin-top:5px; text-align:right;">
+                                Use .1 or .2 for partials
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-act" onclick="calculateStandardERA()">Calculate ERA</button>
+                    <div style="text-align:center;">
+                        <button type="button" class="btn-res" onclick="clearTool()">Reset</button>
+                    </div>
+                </div>
+
+                <div id="mode-reverse" style="display: none;">
+                    <p style="font-size:0.85rem; color:var(--mut); margin-bottom:15px; text-align:center;">
+                        How many <strong>scoreless innings</strong> do you need to reach your goal?
+                    </p>
+                    <div class="grid-2">
+                        <div>
+                            <label class="input-label">Current ERA</label>
+                            <div class="input-wrapper" id="wrap-curr-era">
+                                <input type="number" id="currentEra" class="tool-input" placeholder="e.g. 4.50" step="0.01">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="input-label">Current Innings (IP)</label>
+                            <div class="input-wrapper" id="wrap-curr-ip">
+                                <input type="number" id="currentIp" class="tool-input" placeholder="e.g. 50.0" step="0.1">
+                            </div>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label class="input-label" style="color:var(--bl);">Target / Desired ERA</label>
+                            <div class="input-wrapper" id="wrap-target-era" style="border-color:var(--bl);">
+                                <input type="number" id="targetEra" class="tool-input" placeholder="e.g. 3.99" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-act" onclick="calculateReverseERA()">Calculate Innings</button>
+                    <div style="text-align:center;">
+                        <button type="button" class="btn-res" onclick="clearTool()">Reset</button>
+                    </div>
+                </div>
+
+                <div id="results" class="result-container">
+                    
+                    <div style="text-align:center; margin-bottom: 25px;">
+                        <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--mut); margin-bottom: 5px;" id="resLabel">Earned Run Average</p>
+                        
+                        <div class="big-number" id="resMain">0.00</div>
+                        <div class="sub-number" id="resSummary">Allows ~0 runs per 9 innings</div>
+
+                        <div id="resBadge" class="result-badge badge-good">Good</div>
+                    </div>
+
+                    <div id="legendBox" class="legend-box" style="display:none;">
+                        <span id="legendText"></span>
+                    </div>
+
+                    <div class="data-card">
+                        <h3>Math Details</h3>
+                        <table class="data-table">
+                            <tr>
+                                <td id="row1Label">Earned Runs</td>
+                                <td id="row1Val">0</td>
+                            </tr>
+                            <tr>
+                                <td id="row2Label">Total Innings</td>
+                                <td id="row2Val">0.0</td>
+                            </tr>
+                            <tr>
+                                <td id="row3Label">Total Outs</td>
+                                <td id="row3Val">0</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="data-card">
+                        <h3>Benchmarks (2025)</h3>
+                        <table class="data-table">
+                            <tr>
+                                <td>Elite (Top 10%)</td>
+                                <td>&lt; 2.90</td>
+                            </tr>
+                            <tr>
+                                <td>League Average</td>
+                                <td>~4.30</td>
+                            </tr>
+                            <tr>
+                                <td>Replacement</td>
+                                <td>&gt; 5.00</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="sig">Made with <span class="l-pk">Love</span> & <span class="l-bl">Logic</span>.</div>
+            </div>
+
+            <article class="content">
+                <div style="background:#f1f5f9; padding:1.5rem; border-radius:12px; margin:2rem 0; font-size:0.95rem;">
+    <p style="font-weight:700; margin:0 0 0.8rem 0;">Table of Contents</p>
+    <ul style="margin:0; padding-left:1.2rem;">
+        <li><a href="#features">Features & Modes</a></li>
+        <li><a href="#how-to">How to Use This Tool</a></li>
+        <li><a href="#formula">The Math: ERA Formula</a></li>
+        <li><a href="#softball">Softball (7 Innings)</a></li>
+        <li><a href="#faq">FAQ</a></li>
+    </ul>
+</div>
+                <p>Our <span class="text-highlight">baseball ERA calculator</span> is designed for everyone. Whether you are an MLB scout, a college recruiter, or a parent tracking stats for a travel team, plan your season targets and understand exactly where you stand.</p>
+
+                <h2 id="features">Features of This Tool</h2>
+                <p>We designed this tool to be the only calculator a pitcher needs in their bag:</p>
+                <ol>
+                    <li><strong>Two Modes:</strong> Standards (9 innings) and softball (7 innings).</li>
+                    <li><strong>Partial Innings Support:</strong> Mental math? No, just select .1 (1 out) or .2 (2 outs) directly. We handle the conversion to .33 and .66 automatically.</li>
+                    <li><strong>Target Planner (Reverse Mode):</strong> Want to lower your ERA to 2.99? Switch to the <span class="text-highlight">"Target Planner"</span> tab.</li>
+                    <li><strong>Multi-League Support:</strong> whether you need a softball era calculator or one for high school baseball, our flexible logic adapts to your game length.</li>
+                    <li><strong>Visual Benchmarking:</strong> Don't just number; know what it means with badges like <span class="text-highlight">"Elite," "Good,"</span> or <span class="text-highlight">"Average"</span> based on last year's stats.</li>
+                </ol>
+
+                <h2 id="how-to">How to Use This Calculator</h2>
+                <ol>
+                    <li><strong>Select Your Mode:</strong>
+                        <ul>
+                            <li>Standard ERA: This is for checking your current stats.</li>
+                            <li>Target Planner: This is for setting future goals.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Enter Earned Runs (ER):</strong> Input the total number of runs allowed that were not due to fielding errors.</li>
+                    <li><strong>Enter Innings Pitched (IP):</strong>
+                        <ul>
+                            <li>Type the full innings in the main box (e.g., 5).</li>
+                            <li>Click the .1 or .2 buttons if you ended an inning early.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Click Calculate:</strong> Get your precise ERA instantly.</li>
+                </ol>
+                <p><em>Note: To set your target, in the target planner, enter your current era, current innings and target era. Click calculate and boom.</em></p>
+
+                <h2 id="formula">How is ERA Calculated? (The Formula)</h2>
+<figure style="margin: 2rem 0; text-align: center;">
+    <img src="/assets/era-calculation-formula.webp" alt="The standard ERA Formula breakdown showing Earned Runs times 9 divided by Innings Pitched" width="800" height="450" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" loading="lazy">
+    <figcaption style="font-size: 0.9rem; color: var(--mut); margin-top: 0.5rem; font-style: italic;">The universal formula for checking a pitcher's dominance.</figcaption>
+</figure>
+                <p>If you have ever asked, <span class="text-highlight">"how is era calculated in baseball?"</span> or wanted to do the math on a napkin (or use our <a href="/long-division-calculator/" style="color:var(--bl); text-decoration:underline;">Long Division Tool</a> for manual checks) in the dugout, it helps to understand the core mechanics.</p>
+                <p>The standard definition of ERA (as defined by <a href="https://www.mlb.com/glossary/standard-stats/earned-run-average" target="_blank" rel="noopener noreferrer" style="color:var(--bl); text-decoration:underline;">MLB Glossary</a>) is: The average number of earned runs a pitcher would give up if they pitched a full 9-inning game.</p>
+
+                <h3>The Official Formula</h3>
+                <p>To calculate era baseball style (Standard 9 Innings), use this equation:</p>
+                <div class="formula-box">ERA = (Earned Runs × 9) / Innings Pitched</div>
+
+                <h3>Step-by-Step: How Do You Calculate ERA?</h3>
+                <p>Let's look at a real-world example. Imagine a pitcher allows 3 Earned Runs over 5.2 Innings.</p>
+                <ul>
+                    <li><strong>Step 1: Convert the Innings.</strong> You cannot divide by 5.2. In baseball, the number after the decimal represents outs.
+                        <br>.1 = 1/3 inning (0.333)
+                        <br>.2 = 2/3 inning (0.666)
+                        <br>So, 5.2 innings becomes 5.666.
+                    </li>
+                    <li><strong>Step 2: Divide Runs by Innings.</strong> 3 ÷ 5.666 = 0.529</li>
+                    <li><strong>Step 3: Normalize to 9 Innings.</strong> 0.529 × 9 = 4.76</li>
+                </ul>
+                <p>So, the answer to <span class="text-highlight">"how do you calculate era"</span> for this stat line is 4.76.</p>
+
+                <h2 id="softball">Softball and 7-Inning Games: The Differences</h2>
+                <p>One of the most common questions we get is: <span class="text-highlight">"how to calculate era in softball?"</span></p>
+                <p>Fastpitch softball and many high school baseball leagues play 7-inning games instead of 9. Using the standard formula here would give you an inflated, incorrect ERA.</p>
+                <p>If you are looking for an <span class="text-highlight">era calculator 7 innings</span> mode, the math changes slightly. You simply swap the <span class="text-highlight">"9"</span> in the formula for a <span class="text-highlight">"7"</span>.</p>
+
+                <h3>The 7-Inning Formula:</h3>
+                <div class="formula-box">ERA = (Earned Runs × 7) / Innings Pitched</div>
+
+                <h3>Why <span class="text-highlight">"Era Calculation for 7 Innings"</span> Matters</h3>
+                <p>If you allow 3 runs in a complete 7-inning game:</p>
+                <ul>
+                    <li>In MLB (9 innings): Your ERA would be 3.86.</li>
+                    <li>In Softball (7 innings): Your ERA is 3.00.</li>
+                </ul>
+                <p>Our tool can serve as a softball era calculator if you take the result and multiply it by roughly 0.77, or simply use the formula above for manual checking.</p>
+
+                <h2>What is a "Good" ERA?</h2>
+                <p>Once you calculate era in baseball, the next question is always: <span class="text-highlight">"Is this number good?"</span> Context is everything.</p>
+                <ul>
+                    <li><strong>Under 2.50 (Elite):</strong> You are likely the ace of the staff. In the pros, this wins Cy Young awards.</li>
+                    <li><strong>2.50 – 3.50 (Great):</strong> You are a solid reliable starter. Most college recruiters look for numbers in this range.</li>
+                    <li><strong>3.50 – 4.50 (Average):</strong> You keep the team in the game, but you rely on your offense to score runs.</li>
+                    <li><strong>Over 5.00 (Struggling):</strong> This usually indicates control issues or tipping pitches.</li>
+                </ul>
+                <p><em>Note: In slow-pitch leagues, a <span class="text-highlight">"good"</span> ERA might be significantly higher (often over 5.00 or 6.00) due to the nature of the game.</em></p>
+
+                <h2 id="faq">Frequently Asked Questions (FAQ)</h2>
+<div class="faq-section">
+    <details class="faq-item">
+        <summary class="faq-q">How do you calculate ERA with partial innings?</summary>
+        <div class="faq-a"><p>You must convert the ".1" or ".2" into decimals. 1 out is 0.333 innings, and 2 outs is 0.666 innings. Our tool does this automatically.</p></div>
+    </details>
+    <details class="faq-item">
+        <summary class="faq-q">Does this work for 7-inning softball games?</summary>
+        <div class="faq-a"><p>Yes! Simply click the "Softball (7 Innings)" button at the top of the calculator. This adjusts the formula multiplier from 9 to 7 for accurate results.</p></div>
+    </details>
+    <details class="faq-item">
+        <summary class="faq-q">Do unearned runs count toward ERA?</summary>
+        <div class="faq-a"><p>No. Runs resulting from fielding errors are excluded. Only "Earned Runs" affect this stat. Unearned runs count toward your RA (Run Average).</p></div>
+    </details>
+</div>
+
+                <h2>Conclusion</h2>
+                <p>Mastering your stats is the first step to improving them. By understanding how it is calculated—whether for a 9-inning hardball game or a 7-inning softball match—you take control of your development.</p>
+                <p>Use this baseball era calculator throughout your season. Track your progress, use the <span class="text-highlight">"Target Planner"</span> to stay motivated, and focus on throwing strikes.</p>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="foot-grid">
+                <div class="foot-brand">
+                    <h3>
+                        <span class="l-pk">Love</span>
+                        <svg class="l-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 20 10 L 20 60 Q 20 90 50 90 Q 80 90 80 60 L 80 10" stroke="url(#uG)" stroke-width="28" stroke-linecap="round"/>
+                        </svg>
+                        <span class="l-bl">Calc.</span>
+                    </h3>
+                    <p>Smart, simple, and accurate online tools. Built for students, professionals, and everyday problem solving.</p>
+                </div>
+                
+                <div class="foot-col">
+                    <h4>Popular Tools</h4>
+                    <a href="/long-division-calculator">Long Division Solver</a>
+                    <a href="/asphalt-calculator">Asphalt Calculator</a>
+                    <a href="/negative-marking-calculator">Negative Marking</a>
+                </div>
+
+                <div class="foot-col">
+                    <h4>Information</h4>
+                    <a href="/about">About Us</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/terms">Terms of Service</a>
+                </div>
+            </div>
+            <div class="foot-btm">&copy; 2026 LoveU Calc. All rights reserved. Use for reference only.</div>
+        </div>
+    </footer>
+
+    <script src="/scripts.js" defer></script>
+    <script src="./tool.js" defer></script>
+
+</body>
+</html>

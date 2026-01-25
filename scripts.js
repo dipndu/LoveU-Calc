@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const categories = [
             { name: 'Construction', url: '/categories/construction-materials' },
             { name: 'Education', url: '/categories/education-academics' },
-            { name: 'Engineering', url: '/categories/sports' }
+            { name: 'Sports', url: '/categories/sports' }
         ];
 
         // 2. Create and append the "Categories" Title

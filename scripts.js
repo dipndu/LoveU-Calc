@@ -1,21 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ---------------------------------------------------------
-    // 0. NEW CATEGORY INJECTION (Dynamic Menu)
+    // 0. DYNAMIC MENU INJECTION (With Title)
     // ---------------------------------------------------------
-    // We target the navigation container inside the drawer
     const navContainer = document.querySelector('.drawer .nav-lnk');
     
     if (navContainer) {
-        // Create the new link element
-        const newLink = document.createElement('a');
-        
-        // Set the attributes to match your existing links
-        newLink.href = '/categories/engineering'; // The URL for the new category
-        newLink.textContent = 'Engineering';      // The text to display
-        
-        // Append it to the end of the list
-        navContainer.appendChild(newLink);
+        // 1. Define the new links you want (You can add more here easily)
+        const categories = [
+            { name: 'Construction', url: '/categories/construction-materials' },
+            { name: 'Education', url: '/categories/education-academics' },
+            { name: 'Engineering', url: '/categories/engineering' }
+        ];
+
+        // 2. Create and append the "Categories" Title
+        const titleDiv = document.createElement('div');
+        titleDiv.textContent = 'Categories';
+        // Styling the title to look good (Bold, slightly smaller, uppercase)
+        titleDiv.style.cssText = 'padding: 16px 0 8px 0; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: #94a3b8; letter-spacing: 1px;';
+        navContainer.appendChild(titleDiv);
+
+        // 3. Loop through the list and create links
+        categories.forEach(cat => {
+            const link = document.createElement('a');
+            link.href = cat.url;
+            link.textContent = cat.name;
+            // The CSS (.nav-lnk a) will automatically style these!
+            navContainer.appendChild(link);
+        });
     }
 
 
@@ -102,12 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         searchBtn.addEventListener('click', () => {
             // 1. PREPARE LAYOUT FIRST (Prevents "Jump")
-            // We set the top margin BEFORE showing the overlay
             const barHeight = searchBarEl ? searchBarEl.offsetHeight : 80;
             
             if(globalResults) {
                 globalResults.style.marginTop = `${barHeight}px`; 
-                globalResults.innerHTML = ''; // Clear old results
+                globalResults.innerHTML = ''; 
                 
                 // Style the dropdown
                 globalResults.style.backgroundColor = '#ffffff';
@@ -116,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 globalResults.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)'; 
                 globalResults.style.borderBottomLeftRadius = '12px';
                 globalResults.style.borderBottomRightRadius = '12px';
-                globalResults.style.display = 'none'; // Keep hidden until typing
+                globalResults.style.display = 'none'; 
             }
 
             if(globalInput) globalInput.value = ''; 
@@ -124,8 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 2. APPLY STYLES
             searchOverlay.style.cssText = 'background-color: rgba(255, 255, 255, 0.5) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); overflow-y: hidden !important;';
 
-            // 3. ACTIVATE ANIMATION (Slide Down)
-            // Adding 'active' now ensures the layout is already fixed
+            // 3. ACTIVATE ANIMATION
             searchOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
 
@@ -139,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
             searchOverlay.classList.remove('active');
             document.body.style.overflow = '';
             
-            // Clean up styles after animation ends
             setTimeout(() => { 
                 searchOverlay.style.cssText = ''; 
                 if(globalResults) {

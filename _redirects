@@ -1,0 +1,19 @@
+# --- Tool Pages (Moved to new Folders) ---
+/long-division-calculator/        /math/long-division-calculator/  301
+/asphalt-calculator/              /construction/asphalt-calculator/  301
+/negative-marking-calculator/     /academic/negative-marking-calculator/  301
+/cubic-yard-calculator/           /construction/cubic-yard-calculator/  301
+/era-calculator/                  /sports/era-calculator/  301
+
+# --- Category Pages (Renamed) ---
+/categories/education-academics   /academic/  301
+/categories/construction-materials /construction/  301
+/categories/sports                /sports/  301
+
+# --- Root Pages (Enforcing "/" for consistency) ---
+# Your old sitemap had these without slashes. 
+# Your new sitemap has them WITH slashes. These rules fix that.
+/contact                          /contact/  301
+/about                            /about/  301
+/privacy                          /privacy/  301
+/terms                            /terms/  301

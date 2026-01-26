@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ---------------------------------------------------------
@@ -8,9 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navContainer) {
         // 1. Define the new links you want (You can add more here easily)
         const categories = [
-            { name: 'Construction', url: '/categories/construction-materials' },
-            { name: 'Education', url: '/categories/education-academics' },
-            { name: 'Sports', url: '/categories/sports' }
+            { name: 'Construction', url: '/construction/' },
+            { name: 'Education', url: '/academic/' },  // Label says Education, Link goes to Academic folder
+            { name: 'Math', url: '/math/' },
+            { name: 'Sports', url: '/sports/' }
         ];
 
         // 2. Create and append the "Categories" Title
@@ -251,3 +253,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+

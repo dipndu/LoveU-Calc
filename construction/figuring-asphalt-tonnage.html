@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Guide to Figuring Asphalt Tonnage (2026 Edition) | LoveU Calc</title>
+    <meta name="description" content="Learn how to figure asphalt tonnage correctly. Avoid the 'density trap', calculate roll-down compaction, and spot common paving scams. 2026 Professional Guide.">
+    <meta name="author" content="LoveU Calc">
+    <link rel="canonical" href="https://loveucalc.com/construction/figuring-asphalt-tonnage/">
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://loveucalc.com/construction/figuring-asphalt-tonnage/">
+    <meta property="og:title" content="A Guide to Figuring Asphalt Tonnage (2026 Edition)">
+    <meta property="og:description" content="Don't waste money on disposal fees or risk cold joints. Learn the professional math behind asphalt estimation.">
+    <meta property="og:image" content="https://loveucalc.com/assets/blog-asphalt-guide.jpg">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "A Guide to Figuring Asphalt Tonnage (2026 Edition)",
+          "datePublished": "2026-01-27",
+          "author": { "@type": "Organization", "name": "LoveU Calc" },
+          "description": "A comprehensive guide on calculating asphalt tonnage, understanding density variations, and avoiding common paving scams."
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the formula for figuring asphalt tonnage?",
+              "acceptedAnswer": { "@type": "Answer", "text": "The standard formula is: (Length ft x Width ft x Depth inches / 12) x (Density / 2000). For most projects, use a density of 145 lbs per cubic foot." }
+            },
+            {
+              "@type": "Question",
+              "name": "How much does a ton of asphalt cover?",
+              "acceptedAnswer": { "@type": "Answer", "text": "One ton of asphalt covers approximately 80 square feet at 2 inches thick, or 54 square feet at 3 inches thick (compacted)." }
+            },
+            {
+              "@type": "Question",
+              "name": "How much does asphalt compact?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Asphalt compacts by about 20-25%. To achieve a 3-inch finished driveway, you must lay about 3.75 inches of loose material." }
+            },
+            {
+              "@type": "Question",
+              "name": "How many tons of asphalt are in a dump truck?",
+              "acceptedAnswer": { "@type": "Answer", "text": "A standard tri-axle dump truck holds between 18 and 22 tons of asphalt. A smaller single-axle truck typically holds 6-8 tons." }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* --- 1. GLOBAL VARIABLES --- */
+        :root {
+            --bg: #f8fafc; --surf: #ffffff;
+            --txt: #0f172a; --mut: #475569; --bord: #cbd5e1;
+            --pk: #db2777; --bl: #2563eb; --grn: #15803d;
+            --grad: linear-gradient(135deg, #db2777 0%, #2563eb 100%);
+            --rad: 16px; --shad: 0 1px 3px rgba(0,0,0,0.05);
+            --shad-h: 0 10px 15px -3px rgba(0,0,0,0.05);
+        }
+
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--txt); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        
+        .container { max-width: 1000px; width: 100%; margin: 0 auto; padding: 0 1.5rem; }
+        .limiter { max-width: 800px; width: 100%; margin: 0 auto; }
+        @media (max-width: 480px) { .container { padding: 0 1.25rem; } }
+        
+        /* HEADER */
+        header { 
+            padding: 1rem 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 50; 
+            background: #ffffff; 
+            border-bottom: 1px solid #e2e8f0; 
+        }
+        
+        .head-in { display: flex; justify-content: space-between; align-items: center; }
+        .head-l { display: flex; align-items: center; gap: 1.2rem; }
+        .icon-btn { background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .icon-btn:hover { background: rgba(0,0,0,0.04); }
+        .ico-burger { width: 22px; height: 2.5px; background: var(--txt); position: relative; border-radius: 2px; }
+        .ico-burger::before, .ico-burger::after { content: ''; position: absolute; left: 0; width: 22px; height: 2.5px; background: var(--txt); border-radius: 2px; }
+        .ico-burger::before { top: -7px; } .ico-burger::after { top: 7px; }
+        .ico-svg { width: 24px; height: 24px; fill: none; stroke: var(--txt); stroke-width: 2.5; stroke-linecap: round; }
+        
+        .logo { display: flex; align-items: baseline; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; color: var(--txt); }
+        .l-pk { color: var(--pk); } .l-bl { color: var(--bl); }
+        .l-svg { width: 22px; height: 22px; margin: 0 2px 0 4px; transform: rotate(-15deg); transform-origin: bottom center; position: relative; top: 2px; }
+
+        /* FOOTER */
+        footer { background: #111827; border-top: 1px solid #1f2937; padding: 4rem 0 2rem; margin-top: auto; font-size: 0.95rem; }
+        .foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        @media (max-width: 768px) { .foot-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; } }
+        .foot-brand h3 { margin: 0 0 1rem; font-size: 1.4rem; font-weight: 800; display: inline-flex; align-items: baseline; color: #ffffff; }
+        .foot-brand .l-svg { width: 20px; height: 20px; margin: 0 2px; }
+        .foot-brand p { color: #e2e8f0; max-width: 300px; line-height: 1.6; }
+        @media (max-width: 768px) { .foot-brand p { margin: 0 auto; } }
+        .foot-col h4 { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 1.2rem; color: #ffffff; }
+        .foot-col a { display: block; margin-bottom: 0.8rem; color: #e2e8f0; }
+        .foot-col a:hover { color: #ffffff; transform: translateX(3px); }
+        .foot-btm { border-top: 1px solid #1f2937; padding-top: 1.5rem; text-align: center; color: #cbd5e1; font-size: 0.85rem; }
+
+        /* Overlays */
+        .ov-lay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); z-index: 100; opacity: 0; visibility: hidden; transition: 0.2s; }
+        .ov-lay.active { opacity: 1; visibility: visible; }
+        .drawer { position: fixed; inset: 0 auto 0 0; width: 300px; background: var(--surf); z-index: 101; padding: 2rem; transform: translateX(-100%); transition: 0.3s; }
+        .ov-lay.active .drawer { transform: translateX(0); }
+        .search-bar { position: fixed; inset: 0 0 auto 0; background: var(--surf); z-index: 101; padding: 1.5rem; transform: translateY(-100%); transition: 0.3s; border-bottom: 1px solid var(--bord); display: flex; gap: 1rem; }
+        .ov-lay.active .search-bar { transform: translateY(0); }
+        .cls-btn { font-size: 1.8rem; background: none; border: none; cursor: pointer; color: var(--mut); }
+        .nav-lnk a { display: block; padding: 12px 0; border-bottom: 1px solid var(--bord); font-weight: 600; }
+        .search-inp { width: 100%; padding: 12px 0; font-size: 1.2rem; border: none; border-bottom: 2px solid var(--bord); outline: none; }
+
+        /* --- ARTICLE STYLING --- */
+        .content { margin-top: 2rem; padding-bottom: 4rem; }
+        .content h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 1rem; line-height: 1.2; color: var(--txt); }
+        .content h2 { font-size: 1.6rem; font-weight: 800; margin: 2.5rem 0 1rem; letter-spacing: -0.5px; color: var(--txt); border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; scroll-margin-top: 80px; }
+        .content h3 { font-size: 1.25rem; font-weight: 700; margin: 2rem 0 0.8rem; color: var(--txt); }
+        .content p { margin-bottom: 1.2rem; font-size: 1.05rem; color: var(--mut); }
+        .content ul, .content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; color: var(--mut); }
+        .content li { margin-bottom: 0.6rem; font-size: 1.05rem; }
+        
+        /* Table of Contents */
+        .toc-box { background: #f8fafc; border: 1px solid var(--bord); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+        .toc-box p { margin: 0 0 0.5rem 0; font-weight: 700; color: var(--txt); }
+        .toc-box ul { margin: 0; padding-left: 1.2rem; list-style: none; }
+        .toc-box li { margin-bottom: 0.5rem; }
+        .toc-box a { text-decoration: none; color: var(--bl); font-weight: 600; transition: 0.2s; }
+        .toc-box a:hover { text-decoration: underline; color: var(--pk); }
+
+        /* Special Highlights */
+        .text-highlight { color: var(--bl); font-weight: 700; }
+        
+        /* Math Formula Box */
+        .formula-box { 
+            background: #f1f5f9; 
+            padding: 1.5rem; 
+            border-radius: 8px; 
+            text-align: center; 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.2rem; 
+            margin: 1.5rem 0; 
+            border: 1px solid var(--bord); 
+            color: var(--bl); 
+            font-weight: 700; 
+            overflow-x: auto;
+        }
+
+        /* Warning/Info Box */
+        .info-box {
+            background: #eff6ff; 
+            border-left: 4px solid var(--bl);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            color: var(--txt);
+        }
+        .info-box.warning {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+        }
+        .info-box strong { font-weight: 700; }
+
+        .meta-info { font-size: 0.9rem; color: var(--mut); margin-bottom: 2rem; border-bottom: 1px solid var(--bord); padding-bottom: 1rem; }
+
+        /* --- FAQ STYLES --- */
+        .faq-section { margin-top: 3rem; border-top: 1px dashed var(--bord); padding-top: 1rem; }
+        .faq-item { border-bottom: 1px solid var(--bord); margin-bottom: 10px; }
+        .faq-q { font-weight: 700; cursor: pointer; padding: 15px 0; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; color: var(--txt); }
+        .faq-q::-webkit-details-marker { display: none; }
+        .faq-q::after { content: '+'; font-size: 1.5rem; color: var(--bl); font-weight: 400; }
+        details[open] .faq-q::after { content: '-'; color: var(--pk); }
+        .faq-a { padding-bottom: 15px; color: var(--mut); line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+    <div id="menuOverlay" class="ov-lay">
+        <div class="drawer">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2rem;">
+                <span style="font-weight:800; font-size:1.4rem;">Menu</span>
+                <button id="closeMenu" class="cls-btn" aria-label="Close">&times;</button>
+            </div>
+            <nav class="nav-lnk">
+                <a href="/">Home</a>
+                <a href="/construction/">Construction</a>
+            </nav>
+        </div>
+    </div>
+
+    <div id="searchOverlay" class="ov-lay">
+        <div class="search-bar">
+            <input type="text" id="globalSearchInput" class="search-inp" placeholder="Search tools..." autocomplete="off">
+            <button id="closeSearch" class="cls-btn" aria-label="Close">&times;</button>
+        </div>
+        <div id="searchResults" class="container" style="padding-top:1rem;"></div>
+    </div>
+
+    <header>
+        <div class="container head-in">
+            <div class="head-l">
+                <button id="menuBtn" class="icon-btn" aria-label="Menu"><div class="ico-burger"></div></button>
+                <a href="/" class="logo">
+                    <span class="l-pk">Love</span>
+                    <svg class="l-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs><linearGradient id="uG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#db2777"/><stop offset="100%" style="stop-color:#2563eb"/></linearGradient></defs>
+                        <path d="M 20 10 L 20 60 Q 20 90 50 90 Q 80 90 80 60 L 80 10" stroke="url(#uG)" stroke-width="28" stroke-linecap="round"/>
+                    </svg>
+                    <span class="l-bl">Calc.</span>
+                </a>
+            </div>
+            <button id="searchBtn" class="icon-btn" aria-label="Search"><svg class="ico-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="limiter">
+            
+            <nav aria-label="Breadcrumb" style="margin-top:1.5rem; margin-bottom:1rem; color:var(--mut); font-size:0.9rem;">
+                <ol style="list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; align-items:center;">
+                    <li style="display:inline;"><a href="/" style="text-decoration:none; color:var(--mut);">Home</a><span style="margin:0 8px; color:var(--bord);">/</span></li>
+                    <li style="display:inline;"><a href="/construction/" style="text-decoration:none; color:var(--mut);">Construction</a><span style="margin:0 8px; color:var(--bord);">/</span></li>
+                    <li style="display:inline;" aria-current="page"><span style="color:var(--bl); font-weight:600;">Asphalt Guide</span></li>
+                </ol>
+            </nav>
+
+            <article class="content">
+                <h1>A Guide to Figuring Asphalt Tonnage (2026 Edition)</h1>
+                <div class="meta-info">Published by LoveU Calc • January 2026</div>
+
+                <div class="toc-box">
+                    <p>Table of Contents</p>
+                    <ul>
+                        <li><a href="#formula">1. The Core Formula</a></li>
+                        <li><a href="#density">2. The "Density Trap"</a></li>
+                        <li><a href="#error">3. The Most Common Math Error</a></li>
+                        <li><a href="#compaction">4. Loose vs. Compacted</a></li>
+                        <li><a href="#waste">5. Waste Factors and Logistics</a></li>
+                        <li><a href="#pricing">6. 2026 Pricing & Scams</a></li>
+                        <li><a href="#faq">Frequently Asked Questions</a></li>
+                    </ul>
+                </div>
+
+                <p>Figuring asphalt is not just a math problem—it is a race against time. You could ask, why?</p>
+                <p>Because, unlike steel or timber, asphalt is a perishable material. It begins a thermodynamic countdown to unworkability from the moment it leaves the plant at 300°F (Starts cooling down).</p>
+                <p>If you miscalculate and order too little, you risk a <span class="text-highlight">"cold joint"</span>—a permanent structural weakness caused by the pavement cooling while you wait for the next truck.</p>
+                <p>In contrast, Order too much, and you waste thousands of dollars on disposal fees.</p>
+                <p>Whether you are a homeowner confused over a contractor's bid or a property manager planning a new parking lot, this article shows exactly how to figure asphalt tonnage with professional precision.</p>
+
+                <h2 id="formula">1. The Core Formula for Figuring Asphalt</h2>
+                <p>The standard formula used across the US construction industry uses the volume of the space and the density of the material for calculation.</p>
+                <p>If you are wondering how to figure out asphalt tonnage, the universal equation is:</p>
+
+                <div class="formula-box">
+                    Tonnage = (L × W × D / 12) × (Density / 2000)
+                </div>
+
+                <p>Where:</p>
+                <ul>
+                    <li><strong>L & W:</strong> Length and Width in feet.</li>
+                    <li><strong>D:</strong> Depth (Thickness) in inches.</li>
+                    <li><strong>Density:</strong> Typically 145 lbs/cubic foot (standard <a href="https://www.asphaltpavement.org/" target="_blank" rel="noopener noreferrer" style="color:var(--bl); text-decoration:underline;">NAPA guideline</a> for dense-graded mix).</li>
+                    <li><strong>2000:</strong> The conversion from pounds to Short Tons.</li>
+                </ul>
+
+                <h3>The "Pro" Shortcut: The 110 Rule</h3>
+                <p>Contractors in the field often use a simplified <span class="text-highlight">"Rule of Thumb"</span> for quick estimation. When figuring asphalt tonnage on the fly, they use the multiplier of <strong>110 lbs per square yard per inch</strong> of thickness. This offers a built-in safety margin of roughly 1.15%.</p>
+                <p>The method assumes that 1 square yard of asphalt, 1 inch thick, weighs about 110 pounds.</p>
+                <div class="info-box">
+                    <strong>Pro Tip:</strong> To use this method: Area (sq yds) × Thickness (in) × 110 ÷ 2000 = Tons
+                </div>
+
+                <h2 id="density">2. The "Density Trap": Why 145 lbs Isn't Always Right</h2>
+                <p>Most online calculators assume asphalt weighs 145 lbs/ft³, which is based on mixes made with limestone aggregate.</p>
+                <p>But when learning how to figure out tons of asphalt correctly, local materials matter a lot. Different regions use different types of stone, and some are much heavier than limestone.</p>
+                <p>For example, in many parts of the Northeast and West, quarries produce granite, which typically weighs <strong>148–152 lbs/ft³</strong>. If the mix uses trap rock or basalt, the weight can climb even higher—up to <strong>158 lbs/ft³</strong>.</p>
+                <p><strong>Why this matters:</strong> If you calculate a 10,000 cubic foot project using the standard 145 density, but your local asphalt plant uses trap rock at 158 density, you’ll come up short by about 65 tons—roughly three full tri-axle truckloads.</p>
+                <p>To avoid this mistake, always ask your asphalt supplier for the Job Mix Formula (JMF) density before finalising your order.</p>
+
+                <h2 id="error">3. The Most Common Math Error: Inches vs. Decimals</h2>
+                <p>One of the most frequent mistakes in how to figure asphalt occurs during the conversion of inches to feet.</p>
+                <p>Calculators often ask for decimal feet. Many people intuitively type "4 inches" as "0.4 feet." This is wrong.</p>
+                
+                <div class="info-box warning">
+                    <strong>The Error:</strong> 0.4 ft × 12 = 4.8 inches. You just overestimated your material needs by 20%.
+                </div>
+
+                <p><strong>The Correction:</strong> You must divide inches by 12.</p>
+                <ul>
+                    <li>2 inches = 0.167 feet</li>
+                    <li>3 inches = 0.250 feet</li>
+                    <li>4 inches = 0.333 feet</li>
+                </ul>
+
+                <h2 id="compaction">4. Loose vs. Compacted: The "Roll-Down" Factor</h2>
+
+                <figure style="margin: 2rem 0; text-align: center;">
+    <img src="/assets/asphalt-compaction-diagram.webp" alt="Diagram showing 20% asphalt roll-down from loose to compacted thickness" width="800" height="450" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" loading="lazy">
+    <figcaption style="font-size: 0.9rem; color: var(--mut); margin-top: 0.5rem; font-style: italic;">Always order based on compacted thickness, not loose thickness.</figcaption>
+</figure>
+                <p>When figuring asphalt, you must understand the difference between what comes out of the truck (<span class="text-highlight">"Loose"</span>) and what you drive on (<span class="text-highlight">"Compacted"</span>).</p>
+                <p>Asphalt is "fluffy" when hot. As rollers compress it, the volume reduces by approximately 20-25%. This is known as "roll-down."</p>
+                <ul>
+                    <li>To achieve a 3-inch compacted driveway, the crew must lay <strong>3.75 inches loose</strong>.</li>
+                    <li>To get 2 inches compacted, they must lay <strong>2.5 inches loose</strong>.</li>
+                </ul>
+
+                <div class="info-box warning">
+                    <strong>Critical Warning:</strong> When using the formula for figuring asphalt, always use the final compacted thickness (e.g., 3 inches). The standard density of 145 lbs/ft³ already accounts for the material in its compressed state. If you calculate using the loose thickness, you will massively over-order.
+                </div>
+
+                <h2 id="waste">5. Waste Factors and Logistics</h2>
+                <p>Even if your geometry is perfect, how to figure tonnage for asphalt requires adding a <span class="text-highlight">"Waste Factor."</span> You will lose material to starts and stops, cleanouts, and "feathering" edges.</p>
+                
+                <h3>Recommended Safety Margins:</h3>
+                <ul>
+                    <li><strong>Simple Rectangular Driveways:</strong> Add 5%.</li>
+                    <li><strong>Curved/Complex Driveways:</strong> Add 10%.</li>
+                    <li><strong>Small Patches:</strong> Add 15-20% (due to high edge-to-surface ratio).</li>
+                </ul>
+
+                <h3>Trucking Logistics</h3>
+                <p>Asphalt plants sell by the ton, but logistics run by the truckload. A standard Tri-Axle dump truck holds 18-22 tons. If your calculation calls for 18.5 tons, do not try to save money by ordering exactly that amount. Order the full 21-ton load. It is better to have slightly thicker pavement than to pay "under-load fees" or run short.</p>
+
+                <h2 id="pricing">6. Current 2026 Pricing & Scam Protection</h2>
+                <p>Understanding how to figure tonnage of asphalt is your best defense against common paving scams.</p>
+
+                <h3>The "Leftover Material" Scam</h3>
+                <p>A contractor knocks on your door claiming to have "leftover asphalt" from a nearby job and offers a cheap price. Do not accept this.</p>
+                <ul>
+                    <li><strong>It's Cold:</strong> The mix has likely cooled below workable temperatures.</li>
+                    <li><strong>It's Insufficient:</strong> A typical driveway needs 10-15 tons. "Leftovers" are usually just 2-3 tons, meaning they will spread it paper-thin.</li>
+                </ul>
+
+                <h3>The "Thick Loose" Deception</h3>
+                <p>Dishonest contractors bid for "3 inches" but lay "3 inches loose." Since loose asphalt compacts down by 20%, you are actually only getting 2.4 inches of pavement. Always specify <span class="text-highlight">"Compacted Thickness"</span> in your contract.</p>
+
+                <h3>2026 Cost Estimates</h3>
+                <ul>
+                    <li><strong>Material Only (FOB Plant):</strong> $70 - $90 per ton for standard surface mix.</li>
+                    <li><strong>Installed Cost (Residential):</strong> $3.00 - $7.00 per square foot.</li>
+                    <li><strong>Trucking:</strong> Tri-Axle rates are averaging $120-$160 per hour.</li>
+                </ul>
+
+                <h2 id="faq">Frequently Asked Questions (FAQ)</h2>
+                <div class="faq-section">
+                    <details class="faq-item">
+                        <summary class="faq-q">What is the formula for figuring asphalt tonnage?</summary>
+                        <div class="faq-a"><p>The standard formula is: (Length ft x Width ft x Depth inches / 12) x (Density / 2000). For most projects, use a density of 145 lbs per cubic foot.</p></div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-q">How much does a ton of asphalt cover?</summary>
+                        <div class="faq-a"><p>One ton of asphalt covers approximately 80 square feet at 2 inches thick, or 54 square feet at 3 inches thick (compacted).</p></div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-q">How much does asphalt compact?</summary>
+                        <div class="faq-a"><p>Asphalt compacts by about 20-25%. To achieve a 3-inch finished driveway, you must lay about 3.75 inches of loose material.</p></div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-q">How many tons of asphalt are in a dump truck?</summary>
+                        <div class="faq-a"><p>A standard tri-axle dump truck holds between 18 and 22 tons of asphalt. A smaller single-axle truck typically holds 6-8 tons.</p></div>
+                    </details>
+                </div>
+
+                <h2>Conclusion</h2>
+                <p>How to figure asphalt tons correctly requires more than just measuring length and width. You must account for your local aggregate density (is it Limestone or Granite?), verify your unit conversions (3 inches = 0.25 ft), and plan for a 20% roll-down factor.</p>
+                <p>For the most accurate results, skip the manual math and use our <a href="/construction/asphalt-calculator/" class="text-highlight" style="text-decoration:underline;">Asphalt Tonnage Calculator</a> which automatically handles density variations and waste factors for you.</p>
+            </article>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="foot-grid">
+                <div class="foot-brand">
+                    <h3>
+                        <span class="l-pk">Love</span>
+                        <svg class="l-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 20 10 L 20 60 Q 20 90 50 90 Q 80 90 80 60 L 80 10" stroke="url(#uG)" stroke-width="28" stroke-linecap="round"/>
+                        </svg>
+                        <span class="l-bl">Calc.</span>
+                    </h3>
+                    <p>Smart, simple, and accurate online tools. Built for students, professionals, and everyday problem solving.</p>
+                </div>
+                
+                <div class="foot-col">
+                    <h4>Popular Tools</h4>
+                    <a href="/long-division-calculator">Long Division Solver</a>
+                    <a href="/construction/asphalt-calculator/">Asphalt Calculator</a>
+                    <a href="/negative-marking-calculator">Negative Marking</a>
+                </div>
+
+                <div class="foot-col">
+                    <h4>Information</h4>
+                    <a href="/about">About Us</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/terms">Terms of Service</a>
+                </div>
+            </div>
+            <div class="foot-btm">&copy; 2026 LoveU Calc. All rights reserved. Use for reference only.</div>
+        </div>
+    </footer>
+
+    <script src="/scripts.js" defer></script>
+
+</body>
+</html>

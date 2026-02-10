@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <title>LoveU Calc</title>
+    <link href="https://loveucalc.com/feed.xml" rel="self" />
+    <link href="https://loveucalc.com" />
+    <updated>2026-02-10T08:40:50+05:30</updated>
+    <author>
+        <name>Loveu Calc</name>
+    </author>
+    <id>https://loveucalc.com</id>
+
+    <entry>
+        <title>WelCome</title>
+        <author>
+            <name>Loveu Calc</name>
+        </author>
+        <link href="https://loveucalc.com/welcome/"/>
+        <id>https://loveucalc.com/welcome/</id>
+            <category term="Love Calculator"/>
+            <category term="Blogs"/>
+            <category term="AI Prompts"/>
+
+        <updated>2026-02-10T08:40:50+05:30</updated>
+            <summary type="html">
+                <![CDATA[
+                    kgfEAFJS;DLKVDS KHGHGLZa ;J LJSFDGJ' LASJGSAG FLGSS JG SAG HAHG A JS J GJO AHGLFJBFHZO WP NOR A A WTOO UOPA U4WAPT JRGHRSD R
+                ]]>
+            </summary>
+        <content></content>
+    </entry>
+</feed>

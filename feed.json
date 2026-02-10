@@ -1,0 +1,29 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "LoveU Calc",
+    "description": "",
+    "home_page_url": "https://loveucalc.com",
+    "feed_url": "https://loveucalc.com/feed.json",
+    "user_comment": "",
+    "author": {
+        "name": "Loveu Calc"
+    },
+    "items": [
+        {
+            "id": "https://loveucalc.com/welcome/",
+            "url": "https://loveucalc.com/welcome/",
+            "title": "WelCome",
+            "summary": "kgfEAFJS;DLKVDS KHGHGLZa ;J LJSFDGJ' LASJGSAG FLGSS JG SAG HAHG A JS J GJO AHGLFJBFHZO WP NOR A A WTOO UOPA U4WAPT JRGHRSD R",
+            "author": {
+                "name": "Loveu Calc"
+            },
+            "tags": [
+                   "Love Calculator",
+                   "Blogs",
+                   "AI Prompts"
+            ],
+            "date_published": "2026-02-10T08:40:50+05:30",
+            "date_modified": "2026-02-10T08:40:50+05:30"
+        }
+    ]
+}

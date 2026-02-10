@@ -1,4 +1,3 @@
-_redirects
 
 # --- Legal & Info Pages (Old -> New) ---
 /contact /contact/ 301
@@ -14,4 +13,5 @@ _redirects
 /math/* / 301
 /academic/* / 301
 /construction/* / 301
+
 /sports/* / 301

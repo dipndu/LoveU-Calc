@@ -1,0 +1,17 @@
+_redirects
+
+# --- Legal & Info Pages (Old -> New) ---
+/contact /contact/ 301
+/contact/ /contact/ 301
+/about /about-us/ 301
+/about/ /about-us/ 301
+/privacy /privacy-policy/ 301
+/privacy/ /privacy-policy/ 301
+/terms /terms-and-conditions/ 301
+/terms/ /terms-and-conditions/ 301
+
+# --- Old Categories & Posts (Redirect to Homepage) ---
+/math/* / 301
+/academic/* / 301
+/construction/* / 301
+/sports/* / 301

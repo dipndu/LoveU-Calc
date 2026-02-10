@@ -1,0 +1,347 @@
+[
+    {
+        "path": "404.html",
+        "type": "file",
+        "md5": "604c6feb56f22e3a08e38d0ea8762a82"
+    },
+    {
+        "path": "about-us",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/about-us/index.html",
+        "type": "file",
+        "md5": "1b810ad74cb89d0950acd9e33d2f16b3"
+    },
+    {
+        "path": "assets",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "assets/css",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/assets/css/editor.css",
+        "type": "file",
+        "md5": "e5909a88ba1158a79ba2dbf82d6b2d86"
+    },
+    {
+        "path": "/assets/css/main.css",
+        "type": "file",
+        "md5": "4df1fb9c96a319117b28baca8ee4cefe"
+    },
+    {
+        "path": "/assets/css/style.css",
+        "type": "file",
+        "md5": "d23ec86e52d3a1898e4164a4ecfcb400"
+    },
+    {
+        "path": "assets/dynamic",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "assets/js",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/assets/js/scripts.js",
+        "type": "file",
+        "md5": "840d1d0fb7276666706cba10ebb3b40e"
+    },
+    {
+        "path": "/assets/js/scripts.min.js",
+        "type": "file",
+        "md5": "18a65c58aef57c0287e0f0609f3389a9"
+    },
+    {
+        "path": "/assets/js/svg-fix.js",
+        "type": "file",
+        "md5": "7c0d2bb7276904b382e80bf2d85e8a96"
+    },
+    {
+        "path": "/assets/js/svg-map.js",
+        "type": "file",
+        "md5": "9fc67de3715469dc45c582bce11c4eba"
+    },
+    {
+        "path": "assets/svg",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/assets/svg/search.svg",
+        "type": "file",
+        "md5": "dcb9af3171e104304c8117f1c118f2e2"
+    },
+    {
+        "path": "/assets/svg/svg-map.svg",
+        "type": "file",
+        "md5": "bb9e0f5b5c047dfe2eeea9c36390b9f0"
+    },
+    {
+        "path": "authors",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "authors/loveu-calc",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/authors/loveu-calc/index.html",
+        "type": "file",
+        "md5": "549271d85a6a8e83e358758fca2916fb"
+    },
+    {
+        "path": "contact",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/contact/index.html",
+        "type": "file",
+        "md5": "5f7c882bf5e82f1cd3f0b3801f67c256"
+    },
+    {
+        "path": "feed.json",
+        "type": "file",
+        "md5": "b3040bcf16a3e164ad1140a4ab065b89"
+    },
+    {
+        "path": "feed.xml",
+        "type": "file",
+        "md5": "0d67c25f354f5853819d2abe9fbc0516"
+    },
+    {
+        "path": "gemini-ai-photo-prompt-copy-paste",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/gemini-ai-photo-prompt-copy-paste/index.html",
+        "type": "file",
+        "md5": "1b5967c53541eff0d0902079e182ea0e"
+    },
+    {
+        "path": "index.html",
+        "type": "file",
+        "md5": "bb1edf504aa43afe4f2bde965b0e8507"
+    },
+    {
+        "path": "media",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "media/posts",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "media/posts/6",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/media/posts/6/gemini-ai-photo-prompt-copy-paste-2.png",
+        "type": "file",
+        "md5": "ffee28b87acb7d4923957480aa0afb28"
+    },
+    {
+        "path": "media/posts/6/responsive",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-2xl.webp",
+        "type": "file",
+        "md5": "fcc5010caa3de39fd5a57dec7efa697d"
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-lg.webp",
+        "type": "file",
+        "md5": "2f009e90858e0222d02f6b0a43bdd536"
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-md.webp",
+        "type": "file",
+        "md5": "aeeadacd75815004e34882f6adc05e60"
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-sm.webp",
+        "type": "file",
+        "md5": "e82cd7e58b203abfbb17e6e3a37d1b8d"
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-xl.webp",
+        "type": "file",
+        "md5": "1c5d279fda5895690f07da849a776987"
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-xs.webp",
+        "type": "file",
+        "md5": "9b5800f5e28ccb61ee550b8d9dcad7e4"
+    },
+    {
+        "path": "media/posts/7",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/media/posts/7/prompt-for-Gemini-AI-retro-style.png",
+        "type": "file",
+        "md5": "d52f04c9371eb9184843fb182fd32add"
+    },
+    {
+        "path": "media/posts/7/responsive",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/media/posts/7/responsive/prompt-for-Gemini-AI-retro-style-2xl.webp",
+        "type": "file",
+        "md5": "5f3b6319320f8063126b6051d2103073"
+    },
+    {
+        "path": "/media/posts/7/responsive/prompt-for-Gemini-AI-retro-style-lg.webp",
+        "type": "file",
+        "md5": "66a4c6f6dfdf5c9fc8104f455395da40"
+    },
+    {
+        "path": "/media/posts/7/responsive/prompt-for-Gemini-AI-retro-style-md.webp",
+        "type": "file",
+        "md5": "7a3685e80822fb7558fff92a2ce92c21"
+    },
+    {
+        "path": "/media/posts/7/responsive/prompt-for-Gemini-AI-retro-style-sm.webp",
+        "type": "file",
+        "md5": "70e1eb47be422c1267efae4c17c8b2e4"
+    },
+    {
+        "path": "/media/posts/7/responsive/prompt-for-Gemini-AI-retro-style-xl.webp",
+        "type": "file",
+        "md5": "07cbd85c4194b1f2f495fb1dd014e5a8"
+    },
+    {
+        "path": "/media/posts/7/responsive/prompt-for-Gemini-AI-retro-style-xs.webp",
+        "type": "file",
+        "md5": "a3f8c0aa5d59344a945e3101f846b9e1"
+    },
+    {
+        "path": "media/website",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/media/website/android-chrome-512x512.png",
+        "type": "file",
+        "md5": "b7559d46b6d0c1a55b82144d48187762"
+    },
+    {
+        "path": "/media/website/loveu_calc_1200x630.png",
+        "type": "file",
+        "md5": "2e54476cbf348da487a4f5fce30dcee4"
+    },
+    {
+        "path": "media/website/responsive",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/media/website/responsive/android-chrome-512x512-xs.webp",
+        "type": "file",
+        "md5": "4896da82e49c496e0620d11836c9d4ac"
+    },
+    {
+        "path": "/media/website/responsive/ChatGPT-Image-Feb-10-2026-07_30_07-AM-xs.png",
+        "type": "file",
+        "md5": "f996a311d0c05b0e6e419cc07b1e41e1"
+    },
+    {
+        "path": "/media/website/responsive/Gemini_Generated_Image_u2lnovu2lnovu2ln-xs.png",
+        "type": "file",
+        "md5": "cfb48b9acd23bb7124542087d36c0d0b"
+    },
+    {
+        "path": "/media/website/responsive/loveucalc-xs.png",
+        "type": "file",
+        "md5": "f4cb53a4b67791574db4d8fdb32a1b20"
+    },
+    {
+        "path": "/media/website/responsive/loveu_calc_1200x630-xs.webp",
+        "type": "file",
+        "md5": "58b13a29a3e2e0239e5b9ee403a8cf90"
+    },
+    {
+        "path": "privacy-policy",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/privacy-policy/index.html",
+        "type": "file",
+        "md5": "8c3ce567d170d2a8e85cb63a77434a9a"
+    },
+    {
+        "path": "prompt-for-gemini-ai-retro-style-viral-collection",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/prompt-for-gemini-ai-retro-style-viral-collection/index.html",
+        "type": "file",
+        "md5": "2f9a1ad6062980388f56ebbedd21b7e8"
+    },
+    {
+        "path": "robots.txt",
+        "type": "file",
+        "md5": "cf18bc3a52c2ba372f8f5a7e73b36d6e"
+    },
+    {
+        "path": "sitemap.xml",
+        "type": "file",
+        "md5": "019d154e74bda00454bc843882a8370b"
+    },
+    {
+        "path": "sitemap.xsl",
+        "type": "file",
+        "md5": "03c2f9a7fdcc46ff05c435907614a0b8"
+    },
+    {
+        "path": "tags",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "tags/ai-prompts",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/tags/ai-prompts/index.html",
+        "type": "file",
+        "md5": "86cd9ebe22600493d0519709937845bd"
+    },
+    {
+        "path": "/tags/index.html",
+        "type": "file",
+        "md5": "3f9a292805f7f3ea2721781e3d7a4474"
+    },
+    {
+        "path": "terms-and-conditions",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/terms-and-conditions/index.html",
+        "type": "file",
+        "md5": "877d49134aff9d81091d29725e39bd7f"
+    }
+]

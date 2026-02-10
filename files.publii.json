@@ -1,0 +1,292 @@
+[
+    {
+        "path": "404.html",
+        "type": "file",
+        "md5": "4434a5f13d56a5bca5f2c4c808b099a8"
+    },
+    {
+        "path": "about-us",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/about-us/index.html",
+        "type": "file",
+        "md5": "d766668b56c1f16834513823e020ed9c"
+    },
+    {
+        "path": "assets",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "assets/css",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/assets/css/editor.css",
+        "type": "file",
+        "md5": "e5909a88ba1158a79ba2dbf82d6b2d86"
+    },
+    {
+        "path": "/assets/css/main.css",
+        "type": "file",
+        "md5": "4df1fb9c96a319117b28baca8ee4cefe"
+    },
+    {
+        "path": "/assets/css/style.css",
+        "type": "file",
+        "md5": "d23ec86e52d3a1898e4164a4ecfcb400"
+    },
+    {
+        "path": "assets/dynamic",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "assets/js",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/assets/js/scripts.js",
+        "type": "file",
+        "md5": "840d1d0fb7276666706cba10ebb3b40e"
+    },
+    {
+        "path": "/assets/js/scripts.min.js",
+        "type": "file",
+        "md5": "18a65c58aef57c0287e0f0609f3389a9"
+    },
+    {
+        "path": "/assets/js/svg-fix.js",
+        "type": "file",
+        "md5": "7c0d2bb7276904b382e80bf2d85e8a96"
+    },
+    {
+        "path": "/assets/js/svg-map.js",
+        "type": "file",
+        "md5": "9fc67de3715469dc45c582bce11c4eba"
+    },
+    {
+        "path": "assets/svg",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/assets/svg/search.svg",
+        "type": "file",
+        "md5": "dcb9af3171e104304c8117f1c118f2e2"
+    },
+    {
+        "path": "/assets/svg/svg-map.svg",
+        "type": "file",
+        "md5": "bb9e0f5b5c047dfe2eeea9c36390b9f0"
+    },
+    {
+        "path": "authors",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "authors/loveu-calc",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/authors/loveu-calc/index.html",
+        "type": "file",
+        "md5": "7093e8df769a7c3d6f8c8e01536c8cdf"
+    },
+    {
+        "path": "contact",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/contact/index.html",
+        "type": "file",
+        "md5": "d08ac511a9fab83688553447e30bade1"
+    },
+    {
+        "path": "feed.json",
+        "type": "file",
+        "md5": "14968ee6cc6ae448e0cff0ec56fd320f"
+    },
+    {
+        "path": "feed.xml",
+        "type": "file",
+        "md5": "b6800641b25ba33fc62a12ef40688e14"
+    },
+    {
+        "path": "gemini-ai-photo-prompt-copy-paste",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/gemini-ai-photo-prompt-copy-paste/index.html",
+        "type": "file",
+        "md5": "84150b29b880463d7a70651f4d3ca909"
+    },
+    {
+        "path": "index.html",
+        "type": "file",
+        "md5": "5e9e001b0b8f285ef644efdb05f1afb2"
+    },
+    {
+        "path": "media",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "media/posts",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "media/posts/6",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/media/posts/6/gemini-ai-photo-prompt-copy-paste-2.png",
+        "type": "file",
+        "md5": "ffee28b87acb7d4923957480aa0afb28"
+    },
+    {
+        "path": "media/posts/6/responsive",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-2xl.webp",
+        "type": "file",
+        "md5": "fcc5010caa3de39fd5a57dec7efa697d"
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-lg.webp",
+        "type": "file",
+        "md5": "2f009e90858e0222d02f6b0a43bdd536"
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-md.webp",
+        "type": "file",
+        "md5": "aeeadacd75815004e34882f6adc05e60"
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-sm.webp",
+        "type": "file",
+        "md5": "e82cd7e58b203abfbb17e6e3a37d1b8d"
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-xl.webp",
+        "type": "file",
+        "md5": "1c5d279fda5895690f07da849a776987"
+    },
+    {
+        "path": "/media/posts/6/responsive/gemini-ai-photo-prompt-copy-paste-2-xs.webp",
+        "type": "file",
+        "md5": "9b5800f5e28ccb61ee550b8d9dcad7e4"
+    },
+    {
+        "path": "media/website",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/media/website/FAVICONL.png",
+        "type": "file",
+        "md5": "99d31227c5f5a6d4c2066062951a518f"
+    },
+    {
+        "path": "/media/website/loveu_calc_1200x630.png",
+        "type": "file",
+        "md5": "2e54476cbf348da487a4f5fce30dcee4"
+    },
+    {
+        "path": "media/website/responsive",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/media/website/responsive/ChatGPT-Image-Feb-10-2026-07_30_07-AM-xs.png",
+        "type": "file",
+        "md5": "f996a311d0c05b0e6e419cc07b1e41e1"
+    },
+    {
+        "path": "/media/website/responsive/FAVICONL-xs.webp",
+        "type": "file",
+        "md5": "451da9fce6104d70e86f34850762f993"
+    },
+    {
+        "path": "/media/website/responsive/Gemini_Generated_Image_u2lnovu2lnovu2ln-xs.png",
+        "type": "file",
+        "md5": "cfb48b9acd23bb7124542087d36c0d0b"
+    },
+    {
+        "path": "/media/website/responsive/loveucalc-xs.png",
+        "type": "file",
+        "md5": "f4cb53a4b67791574db4d8fdb32a1b20"
+    },
+    {
+        "path": "/media/website/responsive/loveu_calc_1200x630-xs.webp",
+        "type": "file",
+        "md5": "58b13a29a3e2e0239e5b9ee403a8cf90"
+    },
+    {
+        "path": "privacy-policy",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/privacy-policy/index.html",
+        "type": "file",
+        "md5": "8a13eed45412c65991f6b2f688f2412a"
+    },
+    {
+        "path": "robots.txt",
+        "type": "file",
+        "md5": "cf18bc3a52c2ba372f8f5a7e73b36d6e"
+    },
+    {
+        "path": "sitemap.xml",
+        "type": "file",
+        "md5": "be785cd6d735985eeea2ba7289bb42e5"
+    },
+    {
+        "path": "sitemap.xsl",
+        "type": "file",
+        "md5": "03c2f9a7fdcc46ff05c435907614a0b8"
+    },
+    {
+        "path": "tags",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "tags/ai-prompts",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/tags/ai-prompts/index.html",
+        "type": "file",
+        "md5": "a1ec848cd18fd18404599faf70adcbd2"
+    },
+    {
+        "path": "/tags/index.html",
+        "type": "file",
+        "md5": "6edcd9df89ff688cc823ecce05ed3414"
+    },
+    {
+        "path": "terms-and-conditions",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/terms-and-conditions/index.html",
+        "type": "file",
+        "md5": "603e67bf42689286afe50dbf8f9c835f"
+    }
+]
